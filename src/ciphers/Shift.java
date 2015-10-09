@@ -14,8 +14,8 @@ public class Shift extends Cipher{
 		this.key = key;
 		this.plainText = plainText.toLowerCase();
 		
-		encrypt(this.key, this.plainText);
-		decrypt(this.key, this.cipherText);
+		encrypt(this.plainText, this.key);
+		decrypt(this.cipherText, this.key);
 		
 	}
 	//97 - 122
