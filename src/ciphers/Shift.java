@@ -1,14 +1,12 @@
 package ciphers;
-import java.util.Scanner;
+
 public class Shift extends Cipher
 {	
-	@SuppressWarnings("unused")
-	private Scanner scan;
-	public Shift(String key, String plainText)
+    
+	public Shift(String plaintext, String key)
 	{
-		scan = new Scanner(System.in);
 		this.key = key;
-		this.plaintext = plainText.toLowerCase();
+		this.plaintext = plaintext.toLowerCase();
 		encrypt(this.plaintext, this.key);
 		decrypt(this.ciphertext, this.key);
 	}
