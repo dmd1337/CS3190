@@ -48,13 +48,15 @@ public class RailFence extends Cipher
 			ciphertext += temp[i].replaceAll("\\W",  "");
 		}
 		System.out.print("\n");
-		System.out.print("Ciphertext: " + ciphertext + "\n");
+		System.out.print("Ciphertext: " + ciphertext + "\n\n");
 	}
 	/**
 	 * Decrypts the ciphertext
 	 */
 	protected void decrypt()
 	{
-		
+		plaintext = "";
+		System.out.print("Rail Fence Cipher: Decryption Process \n\n");
+		System.out.print("To be implemented. \n\n");
 	}
 }
