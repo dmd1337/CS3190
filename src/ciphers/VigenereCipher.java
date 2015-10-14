@@ -24,7 +24,7 @@ public class VigenereCipher extends Cipher
 	/**
 	 * Encrypts the plaintext by incrementing each letter by the corresponding key value mod key length.
 	 */
-	public void encrypt()
+	protected void encrypt()
 	{
 		ciphertext = "";
 		System.out.print("Vigenere Cipher: Encryption Process \n\n");
@@ -66,7 +66,7 @@ public class VigenereCipher extends Cipher
 	/**
 	 * Decrypts the ciphertext by decrementing each letter by the corresponding key value mod key length.
 	 */
-	public void decrypt()
+	protected void decrypt()
 	{
 		plaintext = "";
 		System.out.print("Vigenere Cipher: Decryption Process \n\n");
