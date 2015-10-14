@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
-
 /**
- *
- * @author Hayley
+ * A class
+ * @author Hayley Billingham
+ * @version 14/10/2015
  */
-public class Gooey {
-    
-    
-    private String pants;
-    
+public class Gooey
+{
+	@SuppressWarnings("unused")
+	private String pants;
 }

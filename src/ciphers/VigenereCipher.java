@@ -1,18 +1,34 @@
 package ciphers;
+/**
+ * The Vigenere Cipher is a block version of the Shift cipher. Instead of using one key value, it uses an array of them
+ * (typically a word or short sentence) and encrypts a plaintext letter with the corresponding key value (mod its length).
+ * Like the Shift cipher, this is symmetric; decryption simply substracts rather than adds.
+ * @author Jack Taylor
+ * @version 14/10/2015
+ */
 public class VigenereCipher extends Cipher
 {
+	/**
+     * Construct a new Vigenere Cipher.
+     * @param plaintext The plaintext string
+     * @param key The encryption key
+     */
 	public VigenereCipher(String plaintext, String key)
 	{
-		this.plaintext = plaintext.toLowerCase();
+		this.plaintext = plaintext.toLowerCase().replaceAll("\\W", "");
 		ciphertext = "";
-		this.key = key;
+		this.key = key.toLowerCase().replaceAll("\\W", "");;
 		encrypt();
 		decrypt();
 	}
+	/**
+	 * Encrypts the plaintext by incrementing each letter by the corresponding key value mod key length.
+	 */
 	public void encrypt()
 	{
 		ciphertext = "";
-		System.out.print("Vigenere Cipher Encryption \n\n");
+		System.out.print("Vigenere Cipher: Encryption Process \n\n");
+		System.out.print("Note: any punctuation and spaces have been removed from the key and plaintext. \n\n");
 		//Numeric representation of key
 		System.out.print("Key: " + key + "\n");
 		System.out.print("Numeric Representation: \n");
@@ -26,7 +42,6 @@ public class VigenereCipher extends Cipher
 		//Numeric representation of plaintext
 		System.out.print("Plaintext: " + plaintext + "\n");
 		System.out.print("Numeric Representation: \n");
-		plaintext = plaintext.replaceAll("\\W", "");
 		int[] plaintextNumbers = new int[plaintext.length()];
 		for (int i = 0; i < plaintext.length(); i++)
 		{
@@ -34,7 +49,6 @@ public class VigenereCipher extends Cipher
 			plaintextNumbers[i] = plaintext.charAt(i) - 97;
 			System.out.print(String.format("%02d", plaintextNumbers[i]) + " ");
 		}
-		System.out.print("\nPunctuation and spaces have been removed.");
 		System.out.print("\n\n");
 		//Encryption process
 		System.out.print("Add key to plaintext (mod 26): \n");
@@ -49,10 +63,13 @@ public class VigenereCipher extends Cipher
 		System.out.print("Ciphertext: " + ciphertext);
 		System.out.print("\n\n");
 	}
+	/**
+	 * Decrypts the ciphertext by decrementing each letter by the corresponding key value mod key length.
+	 */
 	public void decrypt()
 	{
 		plaintext = "";
-		System.out.print("Vigenere Cipher Decryption \n\n");
+		System.out.print("Vigenere Cipher: Decryption Process \n\n");
 		//Numeric representation of key
 		System.out.print("Key: " + key + "\n");
 		System.out.print("Numeric Representation: \n");
@@ -66,7 +83,6 @@ public class VigenereCipher extends Cipher
 		//Numeric representation of ciphertext
 		System.out.print("Ciphertext: " + ciphertext + "\n");
 		System.out.print("Numeric Representation: \n");
-		ciphertext = ciphertext.replaceAll("\\W", "");
 		int[] ciphertextNumbers = new int[ciphertext.length()];
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
@@ -74,7 +90,6 @@ public class VigenereCipher extends Cipher
 			ciphertextNumbers[i] = ciphertext.charAt(i) - 97;
 			System.out.print(String.format("%02d", ciphertextNumbers[i]) + " ");
 		}
-		System.out.print("\nPunctuation and spaces have been removed.");
 		System.out.print("\n\n");
 		//Decryption process
 		System.out.print("Subtract key from ciphertext (mod 26): \n");
