@@ -9,11 +9,11 @@ public class OneTimePad extends Cipher
 	{
 		this.key = (key.toLowerCase()).replaceAll("\\s+", "");
 		this.plaintext = plaintext.toLowerCase();
-		encrypt(this.plaintext, this.key);
-		decrypt(this.ciphertext, this.key);
+		encrypt();
+		decrypt();
 		System.out.println();
 	}
-	protected void encrypt(String plaintext, String key)
+	protected void encrypt()
 	{        
 		if (key.length() >= (plaintext.replaceAll("\\s+", "")).length())
 		{
@@ -40,7 +40,7 @@ public class OneTimePad extends Cipher
 			System.out.println("CANNOT encrypt: Need a longer key");
 		}
 	}
-    protected void decrypt(String ciphertext, String key)
+    protected void decrypt()
     {
     	if (key.length() >= (plaintext.replaceAll("\\s+", "")).length())
     	{

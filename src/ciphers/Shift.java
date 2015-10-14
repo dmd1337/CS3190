@@ -1,17 +1,28 @@
 package ciphers;
-
+/**
+ * The Shift cipher encrypts a plaintext string by incrementing each letter by the value of the key.
+ * It is a symmetric cipher; the decryption process simply does the reverse (i.e. subtract from each ciphertext letter).
+ * @author Nameyka Myrie
+ * @version 14/10/2015
+ */
 public class Shift extends Cipher
 {	
-    
+    /**
+     * Construct a new Shift Cipher.
+     * @param plaintext The plaintext string
+     * @param key The encryption key
+     */
 	public Shift(String plaintext, String key)
 	{
 		this.key = key;
 		this.plaintext = plaintext.toLowerCase();
-		encrypt(this.plaintext, this.key);
-		decrypt(this.ciphertext, this.key);
+		encrypt();
+		decrypt();
 	}
-	//97 - 122
-	protected void encrypt(String plaintext, String key)
+	/**
+	 * Encrypts the plaintext by incrementing each letter by the key value.
+	 */
+	protected void encrypt()
 	{
 		String cipher = "";
 		int charAscii, holder;
@@ -29,7 +40,10 @@ public class Shift extends Cipher
 		System.out.println("Cipher: " + cipher);		
 		ciphertext = cipher;
 	}
-	protected void decrypt(String ciphertext, String key)
+	/**
+	 * Decrypts the ciphertext by decrementing each letter by the key value.
+	 */
+	protected void decrypt()
 	{
 		String plain = "";
 		int charAscii, holder;
@@ -48,12 +62,4 @@ public class Shift extends Cipher
 		System.out.println();
 		plaintext = plain;
 	}
-	/*public static void main(String[] args)
-	{
-		new Shift("0", "Hi my name is");
-		new Shift("2", "Hi my name is");
-		new Shift("26", "Hi my name is");
-		new Shift("26", "Love, forever! Love? is free ^_^");
-		new Shift("10", "Love, forever! Love? is free ^_^");
-	}*/
 }

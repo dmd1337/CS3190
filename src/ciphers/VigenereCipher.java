@@ -6,10 +6,10 @@ public class VigenereCipher extends Cipher
 		this.plaintext = plaintext.toLowerCase();
 		ciphertext = "";
 		this.key = key;
-		encrypt(plaintext, key);
-		decrypt(ciphertext, key);
+		encrypt();
+		decrypt();
 	}
-	public void encrypt(String plaintext, String key)
+	public void encrypt()
 	{
 		ciphertext = "";
 		System.out.print("Vigenere Cipher Encryption \n\n");
@@ -49,7 +49,7 @@ public class VigenereCipher extends Cipher
 		System.out.print("Ciphertext: " + ciphertext);
 		System.out.print("\n\n");
 	}
-	public void decrypt(String ciphertext, String key)
+	public void decrypt()
 	{
 		plaintext = "";
 		System.out.print("Vigenere Cipher Decryption \n\n");
