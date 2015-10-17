@@ -2,7 +2,7 @@ package ciphers;
 /**
  * Rail Fence Cipher
  * @author Jack Taylor
- * @version 14/10/2015
+ * @version 17/10/2015
  */
 public class RailFence extends Cipher
 {
@@ -36,17 +36,22 @@ public class RailFence extends Cipher
 		String[] temp = new String[rails];
 		for (int i = 0; i < temp.length; i++) temp[i] = "";
 		//Arrange plaintext into rails
+		System.out.print("Arrange plaintext into rails: \n");
 		boolean directionDown = true;
 		int index = 0;
 		for (int i = 0; i < plaintext.length(); i++)
 		{
 			temp[index] += plaintext.charAt(i);
 			for (int j = 0; j < temp.length; j++) if (j != index) temp[j] += ".";
-			if (directionDown) index++;
-			else index--;
-			if (index <= 0 || index >= temp.length - 1) directionDown = !directionDown;
+			//Modify index so that it "zigzags"
+			if (rails > 1)
+			{
+				if (directionDown) index++;
+				else index--;
+				if (index <= 0 || index >= temp.length - 1) directionDown = !directionDown;
+			}
 		}
-		System.out.print("Arrange plaintext into rails: \n");
+		//Obtain ciphertext
 		for (int i = 0; i < temp.length; i++)
 		{
 			System.out.println(temp[i]);
@@ -62,6 +67,8 @@ public class RailFence extends Cipher
 	{
 		plaintext = "";
 		System.out.print("Rail Fence Cipher: Decryption Process \n\n");
-		System.out.print("To be implemented. \n\n");
+		int rails = Integer.parseInt(key);
+		System.out.print("Key: " + rails + "\n\n");
+		System.out.print("Ciphertext: " + ciphertext + "\n\n");
 	}
 }

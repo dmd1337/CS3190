@@ -3,7 +3,7 @@ import ciphers.*;
 /**
  * The main class for this program. Contains the main method.
  * @author Nameyka Myrie, Jack Taylor
- * @version 14/10/2015
+ * @version 17/10/2015
  */
 public class Main
 {
