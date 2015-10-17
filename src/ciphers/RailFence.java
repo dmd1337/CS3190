@@ -36,10 +36,15 @@ public class RailFence extends Cipher
 		String[] temp = new String[rails];
 		for (int i = 0; i < temp.length; i++) temp[i] = "";
 		//Arrange plaintext into rails
+		boolean directionDown = true;
+		int index = 0;
 		for (int i = 0; i < plaintext.length(); i++)
 		{
-			temp[i % temp.length] += plaintext.charAt(i);
-			for (int j = 0; j < temp.length; j++) if (j != i % temp.length) temp[j] += ".";
+			temp[index] += plaintext.charAt(i);
+			for (int j = 0; j < temp.length; j++) if (j != index) temp[j] += ".";
+			if (directionDown) index++;
+			else index--;
+			if (index <= 0 || index >= temp.length - 1) directionDown = !directionDown;
 		}
 		System.out.print("Arrange plaintext into rails: \n");
 		for (int i = 0; i < temp.length; i++)

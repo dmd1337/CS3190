@@ -19,6 +19,6 @@ public class Main
     	//new OneTimePad("Just for for tonight", "Ernie Ball Super Slinky");
     	//new OneTimePad("Just for for tonight", "Ernie Ball we uip we");  
     	//new OneTimePad("Just for for tonight", "Ernie Ball we uip weq");
-		new RailFence("plaintextstring", "2");
+		new RailFence("reallylongplaintextstring", "4");
     }
 }
