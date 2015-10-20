@@ -19,8 +19,8 @@ public class Totient
 		return tot;
 	}
 	/**
-	 * Calculates the greatest common divisor of two integers. If this is equal to 1, the two numbers are relatively
-	 * prime to each other and therefore the totient value can be incremented.
+	 * Calculates the greatest common divisor (also known as highest common factor of two integers. If this is equal to 1, the two numbers
+	 * are relatively prime to each other and therefore the totient value can be incremented.
 	 * @param x The first integer
 	 * @param y The second integer
 	 * @return The greatest common divisor
