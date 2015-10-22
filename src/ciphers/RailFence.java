@@ -1,19 +1,15 @@
 package ciphers;
 /**
  * Rail Fence Cipher
- * 
- * @author Jack Taylor
+ * @author Jack Taylor, Nameyka Myrie
  * @version 17/10/2015
  */
 public class RailFence extends Cipher
 {
 	/**
 	 * Construct a new Rail Fence Cipher.
-	 * 
-	 * @param plaintext
-	 *            The plaintext string
-	 * @param key
-	 *            The encryption key (i.e. number of rails)
+	 * @param plaintext The plaintext string
+	 * @param key The encryption key (i.e. number of rails)
 	 */
 	public RailFence(String plaintext, String key)
 	{
@@ -22,7 +18,6 @@ public class RailFence extends Cipher
 		ciphertext = "";
 		this.key = key;
 		encrypt();
-		System.out.println("\t***\t***");
 		decrypt();
 	}
 	/**
@@ -44,6 +39,30 @@ public class RailFence extends Cipher
 		System.out.print("Arrange plaintext into rails: \n");
 		boolean directionDown = true;
 		int index = 0;
+		// Pad plaintext string so it ends on the top or bottom rail
+		int initialLength = plaintext.length();
+		/*if ((initialLength - 1) % (rails - 1) != 0)
+		{
+			for (int i = 0; i < (initialLength - 1) % (rails - 1); i++)
+			{
+				plaintext += "-";
+			}
+		}*/
+		int holder = initialLength % (rails - 1);
+		int divv = (int) initialLength / (rails - 1);
+		if(divv % 2 == 1) //invert it
+		System.out.println(holder);
+		if(holder != 1){
+			if(holder== 0){
+				plaintext += "-";
+			}
+			
+			while(holder > 1){
+				plaintext += "-";
+				holder--;
+			}
+		}
+		
 		for (int i = 0; i < plaintext.length(); i++)
 		{
 			temp[index] += plaintext.charAt(i);
@@ -62,8 +81,6 @@ public class RailFence extends Cipher
 			System.out.println(temp[i]);
 			ciphertext += temp[i].replaceAll("[.]", "");
 		}
-		//if (directionDown && index < rails) for (int i = index; i <= rails; i++) ciphertext += "-";
-		//else if (!directionDown && index > 0) for (int i = index; i >= 0; i--) ciphertext += "-";
 		System.out.print("\n");
 		System.out.print("Ciphertext: " + ciphertext + "\n\n");
 	}
