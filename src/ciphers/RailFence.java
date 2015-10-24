@@ -48,18 +48,24 @@ public class RailFence extends Cipher
 				plaintext += "-";
 			}
 		}*/
-		int holder = initialLength % (rails - 1);
-		int divv = (int) initialLength / (rails - 1);
-		if(divv % 2 == 1) //invert it
-		System.out.println(holder);
+                System.out.println("Thing");
+		int holder = initialLength % (rails - 1); //holder == remainder
+		//int nextSet = (int) Math.ceil(initialLength / (rails - 1) * 1.0); //Where would the next end rail be
+		//if(divv % 2 == 1)  holder++; //invert it
+		System.out.println("Holder:"+holder);
+                //holder == remainder - rails (+1)
+                int addOn = rails - holder +1; //Not sure why it's +1 on the end
+                System.out.println("addOn: " +addOn);
 		if(holder != 1){
-			if(holder== 0){
-				plaintext += "-";
+			if(holder == 0){
+                            plaintext += "-";
+                            addOn = 0;
 			}
 			
-			while(holder > 1){
+			while(addOn > 1){
 				plaintext += "-";
-				holder--;
+				//holder--;
+                                addOn--;
 			}
 		}
 		
