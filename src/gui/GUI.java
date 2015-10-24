@@ -77,9 +77,8 @@ public class GUI extends JFrame
 	 */
 	private void initTitle()
 	{
-		title = new JLabel();
+		title = new JLabel("EnDeCo");
 		title.setFont(new Font("Tahoma", Font.BOLD, 36));
-		title.setText("EnDeCo");
 		title.setSize(140, 35);
 	}
 	/**
