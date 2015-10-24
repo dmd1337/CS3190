@@ -19,10 +19,20 @@ public class Main
     	//new OneTimePad("Just for for tonight", "Ernie Ball Super Slinky");
     	//new OneTimePad("Just for for tonight", "Ernie Ball we uip we");  
     	//new OneTimePad("Just for for tonight", "Ernie Ball we uip weq");
+		new RailFence("really long plaintext string", "3");
+		new RailFence("really long plaintext string", "4");
+		new RailFence("really long plaintext string", "5");
 		new RailFence("really long plaintext string", "6");
+		new RailFence("really long plaintext string", "7");
+		new RailFence("really long plaintext string", "8");
+		new RailFence("really long plaintext string", "9");
+		new RailFence("really long plaintext string", "10");
+		new RailFence("really long plaintext string", "11");
 		/*
 		 *  3 -> 4
 		 *  2 -> 5
+                Fine if it's going down
+                Bad if it's going up
 		 */
     }
 }
