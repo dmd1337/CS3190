@@ -15,8 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 /**
- * The input panel. Allows the user to enter plaintext and select a cipher, then categorises the cipher
- * and displays its summary.
+ * The input panel. Allows the user to enter plaintext and select a cipher, then categorises the cipher and displays its summary.
  * @author Hayley Billingham, Jack Taylor
  * @version 24/10/2015
  */
@@ -29,7 +28,7 @@ public class InputPanel extends JPanel
 	private JLabel lblCipherBreakdown;
 	private JLabel lblCipherSummary;
 	private JTextArea txtInputText;
-	private	JTextArea txtCipherSummary;
+	private JTextArea txtCipherSummary;
 	private JComboBox<String> cobChooseCipher;
 	private JRadioButton rbSubstitution;
 	private JRadioButton rbTransposition;
@@ -71,15 +70,15 @@ public class InputPanel extends JPanel
 		cobChooseCipher = new JComboBox<String>();
 		lblChooseCipher.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblChooseCipher.setText("Choose Cipher");
-		lblChooseCipher.setSize(320,20);
+		lblChooseCipher.setSize(320, 20);
 		cobChooseCipher.setFont(new Font("Tahoma", Font.BOLD, 20));
-		cobChooseCipher.setModel(new DefaultComboBoxModel<String>(new String[] {"Shift Cipher", "Vigenere Cipher", "One Time Pad", "Rail Fence Cipher"}));
+		cobChooseCipher.setModel(new DefaultComboBoxModel<String>(new String[] { "Shift Cipher", "Vigenere Cipher", "One Time Pad", "Rail Fence Cipher" }));
 		cobChooseCipher.setPreferredSize(new Dimension(320, 50));
 		cobChooseCipher.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//Create new cipher based on selection
+				// Create new cipher based on selection
 			}
 		});
 	}

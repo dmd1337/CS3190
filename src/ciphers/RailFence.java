@@ -34,45 +34,48 @@ public class RailFence extends Cipher
 		System.out.print("Plaintext: " + plaintext + "\n\n");
 		// Initialise rails
 		String[] temp = new String[rails];
-		for (int i = 0; i < temp.length; i++) temp[i] = "";
+		for (int i = 0; i < temp.length; i++)
+		{
+			temp[i] = "";
+		}
 		// Arrange plaintext into rails
 		System.out.print("Arrange plaintext into rails: \n");
 		boolean directionDown = true;
 		int index = 0;
 		// Pad plaintext string so it ends on the top or bottom rail
 		int initialLength = plaintext.length();
-		/*if ((initialLength - 1) % (rails - 1) != 0)
+		/*
+		 * if ((initialLength - 1) % (rails - 1) != 0) { for (int i = 0; i < (initialLength - 1) % (rails - 1); i++) { plaintext += "-"; } }
+		 */
+		System.out.println("Thing");
+		int holder = initialLength % (rails - 1); // holder == remainder
+		// int nextSet = (int) Math.ceil(initialLength / (rails - 1) * 1.0); //Where would the next end rail be
+		// if(divv % 2 == 1) holder++; //invert it
+		System.out.println("Holder:" + holder);
+		// holder == remainder - rails (+1)
+		int addOn = rails - holder + 1; // Not sure why it's +1 on the end
+		System.out.println("addOn: " + addOn);
+		if (holder != 1)
 		{
-			for (int i = 0; i < (initialLength - 1) % (rails - 1); i++)
+			if (holder == 0)
 			{
 				plaintext += "-";
+				addOn = 0;
 			}
-		}*/
-                System.out.println("Thing");
-		int holder = initialLength % (rails - 1); //holder == remainder
-		//int nextSet = (int) Math.ceil(initialLength / (rails - 1) * 1.0); //Where would the next end rail be
-		//if(divv % 2 == 1)  holder++; //invert it
-		System.out.println("Holder:"+holder);
-                //holder == remainder - rails (+1)
-                int addOn = rails - holder +1; //Not sure why it's +1 on the end
-                System.out.println("addOn: " +addOn);
-		if(holder != 1){
-			if(holder == 0){
-                            plaintext += "-";
-                            addOn = 0;
-			}
-			
-			while(addOn > 1){
+			while (addOn > 1)
+			{
 				plaintext += "-";
-				//holder--;
-                                addOn--;
+				// holder--;
+				addOn--;
 			}
 		}
-		
 		for (int i = 0; i < plaintext.length(); i++)
 		{
 			temp[index] += plaintext.charAt(i);
-			for (int j = 0; j < temp.length; j++) if (j != index) temp[j] += ".";
+			for (int j = 0; j < temp.length; j++)
+			{
+				if (j != index) temp[j] += ".";
+			}
 			// Modify index so that it "zigzags"
 			if (rails > 1)
 			{
@@ -202,7 +205,9 @@ public class RailFence extends Cipher
 		}
 		// See array
 		for (int i = 0; i < strlen; i++)
+		{
 			System.out.print((i + 1) + ":" + deRandom[i] + ", ");
+		}
 		// Get chars from the list in the order the array says
 		String plain = "";
 		// System.out.println(ciphertext.charAt(deRandom[27]));

@@ -1,17 +1,16 @@
 package ciphers;
 /**
- * The Shift cipher encrypts a plaintext string by incrementing each letter by the value of the key.
- * It is a symmetric cipher; the decryption process simply does the reverse (i.e. subtract from each ciphertext letter).
+ * The Shift cipher encrypts a plaintext string by incrementing each letter by the value of the key. It is a symmetric cipher; the decryption process simply does the reverse (i.e. subtract from each ciphertext letter).
  * @author Nameyka Myrie
  * @version 14/10/2015
  */
 public class Shift extends Cipher
-{	
-    /**
-     * Construct a new Shift Cipher.
-     * @param plaintext The plaintext string
-     * @param key The encryption key
-     */
+{
+	/**
+	 * Construct a new Shift Cipher.
+	 * @param plaintext The plaintext string
+	 * @param key The encryption key
+	 */
 	public Shift(String plaintext, String key)
 	{
 		this.key = key;
@@ -37,7 +36,7 @@ public class Shift extends Cipher
 			holder = (charAscii + Integer.parseInt(key)) % 26;
 			cipher += (char) (holder + 97);
 		}
-		System.out.println("Cipher: " + cipher);		
+		System.out.println("Cipher: " + cipher);
 		ciphertext = cipher;
 	}
 	/**

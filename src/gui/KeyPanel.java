@@ -55,7 +55,7 @@ public class KeyPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//Start encryption process
+				// Start encryption process
 			}
 		});
 	}
