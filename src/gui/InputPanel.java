@@ -10,13 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 /**
  * The input panel. Allows the user to enter plaintext and select a cipher, then categorises the cipher
  * and displays its summary.
@@ -41,61 +38,15 @@ public class InputPanel extends JPanel
 	private JRadioButton rbStream;
 	private JRadioButton rbBlock;
 	/**
-	 * Temporary - will be removed
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		new InputPanel();
-	}
-	/**
 	 * Construct a new InputPanel.
 	 */
 	public InputPanel()
 	{
-		initTheme();
 		initInputText();
 		initChooseCipher();
 		initCipherBreakdown();
 		initCipherSummary();
 		initLayout();
-		JFrame f = new JFrame();
-		f.add(this);
-		f.pack();
-		f.setVisible(true);
-	}
-	/**
-	 * Temporary - will be removed
-	 */
-	private void initTheme()
-	{
-		try
-		{
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-			{
-				if ("Nimbus".equals(info.getName()))
-				{
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		}
-		catch (ClassNotFoundException ex)
-		{
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		catch (InstantiationException ex)
-		{
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		catch (IllegalAccessException ex)
-		{
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		catch (UnsupportedLookAndFeelException ex)
-		{
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
 	}
 	/**
 	 * Initialises the plaintext input area.
@@ -105,7 +56,7 @@ public class InputPanel extends JPanel
 		lblInputText = new JLabel();
 		txtInputText = new JTextArea();
 		lblInputText.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblInputText.setText("Input Text");
+		lblInputText.setText("Input Plaintext");
 		lblInputText.setSize(320, 20);
 		txtInputText.setPreferredSize(new Dimension(320, 50));
 		txtInputText.setFont(new Font("Tahoma", 0, 14));
