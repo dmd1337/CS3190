@@ -53,7 +53,6 @@ public class GUI extends JFrame
 	private JLabel lblInputKey;
 	private JTextArea txtInputKey;
 	private JButton btnEncryptButton;
-	private String selected;
 	//Output Section
 	private JLabel lblEncryptionProcess;
 	private JLabel lblDecryptionProcess;
