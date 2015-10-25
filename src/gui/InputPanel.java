@@ -36,11 +36,13 @@ public class InputPanel extends JPanel
 	private JRadioButton rbAsymmetric;
 	private JRadioButton rbStream;
 	private JRadioButton rbBlock;
+	private boolean updateflag;
 	/**
 	 * Construct a new InputPanel.
 	 */
 	public InputPanel()
 	{
+		updateflag = false;
 		initInputText();
 		initChooseCipher();
 		initCipherBreakdown();
@@ -52,10 +54,9 @@ public class InputPanel extends JPanel
 	 */
 	private void initInputText()
 	{
-		lblInputText = new JLabel();
+		lblInputText = new JLabel("Input Plaintext");
 		txtInputText = new JTextArea();
 		lblInputText.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblInputText.setText("Input Plaintext");
 		lblInputText.setSize(320, 20);
 		txtInputText.setPreferredSize(new Dimension(320, 50));
 		txtInputText.setFont(new Font("Tahoma", 0, 14));
@@ -66,19 +67,18 @@ public class InputPanel extends JPanel
 	 */
 	private void initChooseCipher()
 	{
-		lblChooseCipher = new JLabel();
+		lblChooseCipher = new JLabel("Choose Cipher");
 		cobChooseCipher = new JComboBox<String>();
 		lblChooseCipher.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblChooseCipher.setText("Choose Cipher");
 		lblChooseCipher.setSize(320, 20);
 		cobChooseCipher.setFont(new Font("Tahoma", Font.BOLD, 20));
-		cobChooseCipher.setModel(new DefaultComboBoxModel<String>(new String[] { "Shift Cipher", "Vigenere Cipher", "One Time Pad", "Rail Fence Cipher" }));
+		cobChooseCipher.setModel(new DefaultComboBoxModel<String>(new String[] {"None", "Shift Cipher", "Vigenere Cipher", "One Time Pad", "Rail Fence Cipher"}));
 		cobChooseCipher.setPreferredSize(new Dimension(320, 50));
 		cobChooseCipher.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// Create new cipher based on selection
+				updateflag = true;
 			}
 		});
 	}
@@ -88,7 +88,7 @@ public class InputPanel extends JPanel
 	private void initCipherBreakdown()
 	{
 		radioPanel = new JPanel();
-		lblCipherBreakdown = new JLabel();
+		lblCipherBreakdown = new JLabel("Cipher Breakdown");
 		rbSubstitution = new JRadioButton("Substitution");
 		rbTransposition = new JRadioButton("Transposition");
 		rbSymmetric = new JRadioButton("Symmetric");
@@ -96,7 +96,6 @@ public class InputPanel extends JPanel
 		rbStream = new JRadioButton("Stream");
 		rbBlock = new JRadioButton("Block");
 		lblCipherBreakdown.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCipherBreakdown.setText("Cipher Breakdown");
 		lblCipherBreakdown.setSize(320, 20);
 		rbSubstitution.setEnabled(false);
 		rbTransposition.setEnabled(false);
@@ -119,10 +118,9 @@ public class InputPanel extends JPanel
 	 */
 	private void initCipherSummary()
 	{
-		lblCipherSummary = new JLabel();
+		lblCipherSummary = new JLabel("Quick Summary of Cipher");
 		txtCipherSummary = new JTextArea();
 		lblCipherSummary.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCipherSummary.setText("Quick Summary of Cipher");
 		lblCipherSummary.setSize(320, 20);
 		txtCipherSummary.setFont(new Font("Tahoma", 0, 14));
 		txtCipherSummary.setPreferredSize(new Dimension(320, 100));
@@ -160,5 +158,17 @@ public class InputPanel extends JPanel
 		gbc.gridx = 1;
 		gbc.gridy = 3;
 		add(txtCipherSummary, gbc);
+	}
+	public String getSelectedItem()
+	{
+		return (String)cobChooseCipher.getSelectedItem();
+	}
+	public boolean getFlag()
+	{
+		return updateflag;
+	}
+	public void setFlag(boolean flag)
+	{
+		updateflag = flag;
 	}
 }

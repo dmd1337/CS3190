@@ -33,26 +33,26 @@ public class OutputPanel extends JPanel
 	 */
 	private void initEncryptionProcess()
 	{
-		lblEncryptionProcess = new JLabel();
+		lblEncryptionProcess = new JLabel("Encryption Process");
 		txtEncryptionProcess = new JTextArea();
 		lblEncryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblEncryptionProcess.setText("Encryption Process");
 		lblEncryptionProcess.setSize(320, 20);
-		txtEncryptionProcess.setPreferredSize(new Dimension(320, 100));
+		txtEncryptionProcess.setPreferredSize(new Dimension(320, 200));
 		txtEncryptionProcess.setFont(new Font("Tahoma", 0, 14));
+		txtEncryptionProcess.setRequestFocusEnabled(false);
 	}
 	/**
 	 * Initialises the Decryption Process text area.
 	 */
 	private void initDecryptionProcess()
 	{
-		lblDecryptionProcess = new JLabel();
+		lblDecryptionProcess = new JLabel("Decryption Process");
 		txtDecryptionProcess = new JTextArea();
 		lblDecryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblDecryptionProcess.setText("Decryption Process");
 		lblDecryptionProcess.setSize(320, 20);
-		txtDecryptionProcess.setPreferredSize(new Dimension(320, 100));
+		txtDecryptionProcess.setPreferredSize(new Dimension(320, 200));
 		txtDecryptionProcess.setFont(new Font("Tahoma", 0, 14));
+		txtDecryptionProcess.setRequestFocusEnabled(false);
 	}
 	/**
 	 * Sets the layout of this panel.

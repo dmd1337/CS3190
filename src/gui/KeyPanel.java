@@ -10,6 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import ciphers.OneTimePad;
+import ciphers.RailFence;
+import ciphers.Shift;
+import ciphers.VigenereCipher;
 /**
  * The key panel. Allows the user to enter a key and start the encryption process.
  * @author Hayley Billingham, Jack Taylor
@@ -21,11 +25,13 @@ public class KeyPanel extends JPanel
 	private JLabel lblInputKey;
 	private JTextArea txtInputKey;
 	private JButton btnEncryptButton;
+	private String selected;
 	/**
 	 * Construct a new KeyPanel.
 	 */
 	public KeyPanel()
 	{
+		selected = "";
 		initInputKey();
 		initEncryptButton();
 		initLayout();
@@ -35,10 +41,9 @@ public class KeyPanel extends JPanel
 	 */
 	private void initInputKey()
 	{
-		lblInputKey = new JLabel();
+		lblInputKey = new JLabel("Input Key");
 		txtInputKey = new JTextArea();
 		lblInputKey.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblInputKey.setText("Input Key");
 		lblInputKey.setSize(320, 20);
 		txtInputKey.setPreferredSize(new Dimension(320, 30));
 		txtInputKey.setFont(new Font("Tahoma", 0, 14));
@@ -55,7 +60,10 @@ public class KeyPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// Start encryption process
+				if (selected == "Shift Cipher") new Shift("thing", "2");
+				if (selected == "Vigenere Cipher") new VigenereCipher("longstring", "key");
+				if (selected == "One Time Pad") new OneTimePad("longstring", "evenlongerstring");
+				if (selected == "Rail Fence Cipher") new RailFence("really long plaintext string", "5");
 			}
 		});
 	}
@@ -77,5 +85,9 @@ public class KeyPanel extends JPanel
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
 		add(btnEncryptButton, gbc);
+	}
+	public void setSelectedItem(String selected)
+	{
+		this.selected = selected;
 	}
 }
