@@ -37,7 +37,7 @@ public class GUI extends JFrame
 	private JLabel lblCipherBreakdown;
 	private JLabel lblCipherSummary;
 	private JTextArea txtInputText;
-	private JLabel txtCipherSummary;
+	private JTextArea txtCipherSummary;
 	private JComboBox<String> cobChooseCipher;
 	private JRadioButton rbSubstitution;
 	private JRadioButton rbTransposition;
@@ -116,8 +116,8 @@ public class GUI extends JFrame
 	 */
 	private void initTitle()
 	{
-		title = new JLabel("EnDeCo");
-		title.setFont(new Font("Tahoma", Font.BOLD, 36));
+		title = new JLabel("010000110100100101010000010010000100010101010010");
+		title.setFont(new Font("Tahoma", Font.BOLD, 22));
 		title.setSize(140, 35);
 	}
 	/**
@@ -144,7 +144,8 @@ public class GUI extends JFrame
 			"Shift Cipher",
 			"Vigenere Cipher",
 			"One Time Pad",
-			"Rail Fence Cipher"
+			"Rail Fence Cipher",
+			"RSA"
 		};
 		lblChooseCipher = new JLabel("Choose Cipher");
 		cobChooseCipher = new JComboBox<String>(cipherNames);
@@ -158,7 +159,8 @@ public class GUI extends JFrame
 			{
 				if (cobChooseCipher.getSelectedItem() == "None")
 				{
-					txtCipherSummary.setText("");
+					txtCipherSummary.setText("The None Cipher does exactly what you would \nexpect: absolutely nothing.\n\n"
+						+ "Valid key values: I honestly don't think it matters.");
 					rbSubstitution.setEnabled(false);
 					rbSubstitution.setSelected(false);
 					rbTransposition.setEnabled(false);
@@ -172,9 +174,11 @@ public class GUI extends JFrame
 					rbBlock.setEnabled(false);
 					rbBlock.setSelected(false);
 				}
-				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
+				else if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
-					txtCipherSummary.setText("It shifts stuff");
+					txtCipherSummary.setText("The Shift Cipher is very simple; it takes the key \nand shifts each letter by its value. "
+						+ "For example, a \nkey of 2 will shift \"a\" to \"c\".\n\n"
+						+ "Valid key values: Any number between 1 and 25.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -188,9 +192,10 @@ public class GUI extends JFrame
 					rbBlock.setEnabled(false);
 					rbBlock.setSelected(false);
 				}
-				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
+				else if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
-					txtCipherSummary.setText("It shifts lots of stuff");
+					txtCipherSummary.setText("It shifts lots of stuff.\n\n"
+						+ "Valid key values: Any sequence of letters; no \nnumbers or punctuation.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -204,9 +209,10 @@ public class GUI extends JFrame
 					rbBlock.setEnabled(true);
 					rbBlock.setSelected(true);
 				}
-				if (cobChooseCipher.getSelectedItem() == "One Time Pad")
+				else if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
-					txtCipherSummary.setText("It shifts all the stuff");
+					txtCipherSummary.setText("It shifts all the stuff. \n\n"
+						+ "Valid key values: Same as Vigenere, except it \nshould be at least as long as the plaintext.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -220,9 +226,10 @@ public class GUI extends JFrame
 					rbBlock.setEnabled(true);
 					rbBlock.setSelected(true);
 				}
-				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
+				else if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
-					txtCipherSummary.setText("It shifts no stuff");
+					txtCipherSummary.setText("It shifts no stuff.\n\n"
+						+ "Valid key values: Any number greater than or \nequal to 2.");
 					rbSubstitution.setEnabled(false);
 					rbSubstitution.setSelected(false);
 					rbTransposition.setEnabled(true);
@@ -236,6 +243,24 @@ public class GUI extends JFrame
 					rbBlock.setEnabled(false);
 					rbBlock.setSelected(false);
 				}
+				else if (cobChooseCipher.getSelectedItem() == "RSA")
+				{
+					txtCipherSummary.setText("This cipher has not yet been implemented.\n\n"
+						+ "Valid key values: Any two numbers, separated \nwith a comma (e.g. 53,71).");
+					rbSubstitution.setEnabled(true);
+					rbSubstitution.setSelected(true);
+					rbTransposition.setEnabled(false);
+					rbTransposition.setSelected(false);
+					rbSymmetric.setEnabled(false);
+					rbSymmetric.setSelected(false);
+					rbAsymmetric.setEnabled(true);
+					rbAsymmetric.setSelected(true);
+					rbStream.setEnabled(true);
+					rbStream.setSelected(true);
+					rbBlock.setEnabled(false);
+					rbBlock.setSelected(false);
+				}
+				else txtCipherSummary.setText("You BROKE IT");
 			}
 		});
 	}
@@ -276,11 +301,12 @@ public class GUI extends JFrame
 	private void initCipherSummary()
 	{
 		lblCipherSummary = new JLabel("Quick Summary of Cipher");
-		txtCipherSummary = new JLabel();
+		txtCipherSummary = new JTextArea();
 		lblCipherSummary.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblCipherSummary.setSize(320, 20);
 		txtCipherSummary.setFont(new Font("Tahoma", 0, 14));
-		txtCipherSummary.setPreferredSize(new Dimension(320, 100));
+		txtCipherSummary.setPreferredSize(new Dimension(320, 150));
+		txtCipherSummary.setLineWrap(true);
 		txtCipherSummary.setRequestFocusEnabled(false);
 	}
 	/**
@@ -350,50 +376,55 @@ public class GUI extends JFrame
 		gbc.insets = new Insets(10, 20, 10, 20);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		gbc.gridwidth = 2;
+		add(title, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridwidth = 1;
 		add(lblInputText, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		add(txtInputText, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 0;
+		gbc.gridy = 1;
 		add(lblChooseCipher, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		add(cobChooseCipher, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		add(lblCipherBreakdown, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		add(radioPanel, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		add(lblCipherSummary, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		add(txtCipherSummary, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		add(lblInputKey, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 5;
+		gbc.gridy = 6;
 		add(txtInputKey, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridheight = 2;
 		add(btnEncryptButton, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 6;
+		gbc.gridy = 7;
 		gbc.gridheight = 1;
 		add(lblEncryptionProcess, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 7;
+		gbc.gridy = 8;
 		add(txtEncryptionProcess, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 6;
+		gbc.gridy = 7;
 		add(lblDecryptionProcess, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 7;
+		gbc.gridy = 8;
 		add(txtDecryptionProcess, gbc);
 		pack();
 		setVisible(true);
