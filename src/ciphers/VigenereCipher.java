@@ -26,41 +26,39 @@ public class VigenereCipher extends Cipher
 	protected void encrypt()
 	{
 		ciphertext = "";
-		System.out.print("Vigenere Cipher: Encryption Process \n\n");
-		System.out.print("Note: any punctuation and spaces have been removed from the key and plaintext. \n\n");
+		encryptOutput = "";
 		// Numeric representation of key
-		System.out.print("Key: " + key + "\n");
-		System.out.print("Numeric Representation: \n");
+		encryptOutput += "Key: " + key + "\n";
+		encryptOutput += "Numeric Representation: \n";
 		int[] keyNumbers = new int[key.length()];
 		for (int i = 0; i < key.length(); i++)
 		{
 			keyNumbers[i] = key.charAt(i) - 97;
-			System.out.print(String.format("%02d", keyNumbers[i]) + " ");
+			encryptOutput += String.format("%02d", keyNumbers[i]) + " ";
 		}
-		System.out.print("\n\n");
+		encryptOutput += "\n\n";
 		// Numeric representation of plaintext
-		System.out.print("Plaintext: " + plaintext + "\n");
-		System.out.print("Numeric Representation: \n");
+		encryptOutput += "Plaintext: " + plaintext + "\n";
+		encryptOutput += "Numeric Representation: \n";
 		int[] plaintextNumbers = new int[plaintext.length()];
 		for (int i = 0; i < plaintext.length(); i++)
 		{
 			if (plaintext.charAt(i) < 97 || plaintext.charAt(i) > 122) continue;
 			plaintextNumbers[i] = plaintext.charAt(i) - 97;
-			System.out.print(String.format("%02d", plaintextNumbers[i]) + " ");
+			encryptOutput += String.format("%02d", plaintextNumbers[i]) + " ";
 		}
-		System.out.print("\n\n");
+		encryptOutput += "\n\n";
 		// Encryption process
-		System.out.print("Add key to plaintext (mod 26): \n");
+		encryptOutput += "Add key to plaintext (mod 26): \n";
 		for (int i = 0; i < plaintextNumbers.length; i++)
 		{
 			int ciphertextNumber = (plaintextNumbers[i] + keyNumbers[i % keyNumbers.length]) % 26;
-			System.out.print(String.format("%02d", ciphertextNumber) + " ");
+			encryptOutput += String.format("%02d", ciphertextNumber) + " ";
 			ciphertext += (char) (ciphertextNumber + 97);
 		}
-		System.out.print("\n\n");
+		encryptOutput += "\n\n";
 		// Print ciphertext
-		System.out.print("Ciphertext: " + ciphertext);
-		System.out.print("\n\n");
+		encryptOutput += "Ciphertext: " + ciphertext + "\n\n";
 	}
 	/**
 	 * Decrypts the ciphertext by decrementing each letter by the corresponding key value mod key length.
@@ -68,40 +66,40 @@ public class VigenereCipher extends Cipher
 	protected void decrypt()
 	{
 		plaintext = "";
-		System.out.print("Vigenere Cipher: Decryption Process \n\n");
+		decryptOutput = "";
 		// Numeric representation of key
-		System.out.print("Key: " + key + "\n");
-		System.out.print("Numeric Representation: \n");
+		decryptOutput += "Key: " + key + "\n";
+		decryptOutput += "Numeric Representation: \n";
 		int[] keyNumbers = new int[key.length()];
 		for (int i = 0; i < key.length(); i++)
 		{
 			keyNumbers[i] = key.charAt(i) - 97;
-			System.out.print(String.format("%02d", keyNumbers[i]) + " ");
+			decryptOutput += String.format("%02d", keyNumbers[i]) + " ";
 		}
-		System.out.print("\n\n");
+		decryptOutput += "\n\n";
 		// Numeric representation of ciphertext
-		System.out.print("Ciphertext: " + ciphertext + "\n");
-		System.out.print("Numeric Representation: \n");
+		decryptOutput += "Ciphertext: " + ciphertext + "\n";
+		decryptOutput += "Numeric Representation: \n";
 		int[] ciphertextNumbers = new int[ciphertext.length()];
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
 			if (ciphertext.charAt(i) < 97 || ciphertext.charAt(i) > 122) continue;
 			ciphertextNumbers[i] = ciphertext.charAt(i) - 97;
-			System.out.print(String.format("%02d", ciphertextNumbers[i]) + " ");
+			decryptOutput += String.format("%02d", ciphertextNumbers[i]) + " ";
 		}
-		System.out.print("\n\n");
+		decryptOutput += "\n\n";
 		// Decryption process
-		System.out.print("Subtract key from ciphertext (mod 26): \n");
+		decryptOutput += "Subtract key from ciphertext (mod 26): \n";
 		for (int i = 0; i < ciphertextNumbers.length; i++)
 		{
 			int plaintextNumber = (ciphertextNumbers[i] - keyNumbers[i % keyNumbers.length]) % 26;
 			if (plaintextNumber < 0) plaintextNumber += 26;
-			System.out.print(String.format("%02d", plaintextNumber) + " ");
+			decryptOutput += String.format("%02d", plaintextNumber) + " ";
 			plaintext += (char) (plaintextNumber + 97);
 		}
-		System.out.print("\n\n");
+		decryptOutput += "\n\n";
+		System.out.print("");
 		// Print plaintext
-		System.out.print("Plaintext: " + plaintext);
-		System.out.print("\n\n");
+		decryptOutput += "Plaintext: " + plaintext + "\n\n";
 	}
 }

@@ -117,7 +117,7 @@ public class GUI extends JFrame
 	private void initTitle()
 	{
 		title = new JLabel("010000110100100101010000010010000100010101010010");
-		title.setFont(new Font("Tahoma", Font.BOLD, 22));
+		title.setFont(new Font("Tahoma", Font.BOLD, 28));
 		title.setSize(140, 35);
 	}
 	/**
@@ -128,8 +128,8 @@ public class GUI extends JFrame
 		lblInputText = new JLabel("Input Plaintext");
 		txtInputText = new JTextArea();
 		lblInputText.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblInputText.setSize(320, 20);
-		txtInputText.setPreferredSize(new Dimension(320, 50));
+		lblInputText.setSize(464, 20);
+		txtInputText.setPreferredSize(new Dimension(464, 50));
 		txtInputText.setFont(new Font("Tahoma", 0, 14));
 		txtInputText.setLineWrap(true);
 	}
@@ -150,16 +150,16 @@ public class GUI extends JFrame
 		lblChooseCipher = new JLabel("Choose Cipher");
 		cobChooseCipher = new JComboBox<String>(cipherNames);
 		lblChooseCipher.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblChooseCipher.setSize(320, 20);
+		lblChooseCipher.setSize(464, 20);
 		cobChooseCipher.setFont(new Font("Tahoma", Font.BOLD, 20));
-		cobChooseCipher.setPreferredSize(new Dimension(320, 50));
+		cobChooseCipher.setPreferredSize(new Dimension(464, 50));
 		cobChooseCipher.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if (cobChooseCipher.getSelectedItem() == "None")
 				{
-					txtCipherSummary.setText("The None Cipher does exactly what you would \nexpect: absolutely nothing.\n\n"
+					txtCipherSummary.setText("The None Cipher does exactly what you would expect: absolutely \nnothing.\n\n"
 						+ "Valid key values: I honestly don't think it matters.");
 					rbSubstitution.setEnabled(false);
 					rbSubstitution.setSelected(false);
@@ -176,8 +176,8 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
-					txtCipherSummary.setText("The Shift Cipher is very simple; it takes the key \nand shifts each letter by its value. "
-						+ "For example, a \nkey of 2 will shift \"a\" to \"c\".\n\n"
+					txtCipherSummary.setText("The Shift Cipher is very simple; it takes the key and shifts each letter by \nits value. "
+						+ "For example, a key of 2 will shift \"a\" to \"c\".\n\n"
 						+ "Valid key values: Any number between 1 and 25.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
@@ -194,8 +194,9 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
-					txtCipherSummary.setText("It shifts lots of stuff.\n\n"
-						+ "Valid key values: Any sequence of letters; no \nnumbers or punctuation.");
+					txtCipherSummary.setText("The Vigenere Cipher is a block version of the Shift cipher. It shifts each \nletter "
+						+ "by the corresponding key value, returning to the start of the key \nwhen it reaches the last key letter.\n\n"
+						+ "Valid key values: Any sequence of letters; no numbers or punctuation.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -211,8 +212,9 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
-					txtCipherSummary.setText("It shifts all the stuff. \n\n"
-						+ "Valid key values: Same as Vigenere, except it \nshould be at least as long as the plaintext.");
+					txtCipherSummary.setText("The One Time Pad is functionally identical to the Vigenere Cipher, except \nthe key is "
+						+ "longer than the plaintext. Typically, the key would be a long \nliterary excerpt.\n\n"
+						+ "Valid key values: Same as Vigenere, except it should be at least as long as \nthe plaintext.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -229,7 +231,7 @@ public class GUI extends JFrame
 				else if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
 					txtCipherSummary.setText("It shifts no stuff.\n\n"
-						+ "Valid key values: Any number greater than or \nequal to 2.");
+						+ "Valid key values: Any number greater than or equal to 2.");
 					rbSubstitution.setEnabled(false);
 					rbSubstitution.setSelected(false);
 					rbTransposition.setEnabled(true);
@@ -246,7 +248,7 @@ public class GUI extends JFrame
 				else if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
 					txtCipherSummary.setText("This cipher has not yet been implemented.\n\n"
-						+ "Valid key values: Any two numbers, separated \nwith a comma (e.g. 53,71).");
+						+ "Valid key values: Any number greater than or equal to 2.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -278,7 +280,7 @@ public class GUI extends JFrame
 		rbStream = new JRadioButton("Stream");
 		rbBlock = new JRadioButton("Block");
 		lblCipherBreakdown.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCipherBreakdown.setSize(320, 20);
+		lblCipherBreakdown.setSize(464, 20);
 		rbSubstitution.setEnabled(false);
 		rbTransposition.setEnabled(false);
 		rbSymmetric.setEnabled(false);
@@ -286,7 +288,7 @@ public class GUI extends JFrame
 		rbStream.setEnabled(false);
 		rbBlock.setEnabled(false);
 		radioPanel.setLayout(new GridLayout(2, 3));
-		radioPanel.setPreferredSize(new Dimension(320, 100));
+		radioPanel.setPreferredSize(new Dimension(464, 100));
 		radioPanel.add(rbSubstitution);
 		radioPanel.add(rbSymmetric);
 		radioPanel.add(rbStream);
@@ -303,9 +305,9 @@ public class GUI extends JFrame
 		lblCipherSummary = new JLabel("Quick Summary of Cipher");
 		txtCipherSummary = new JTextArea();
 		lblCipherSummary.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCipherSummary.setSize(320, 20);
+		lblCipherSummary.setSize(464, 20);
 		txtCipherSummary.setFont(new Font("Tahoma", 0, 14));
-		txtCipherSummary.setPreferredSize(new Dimension(320, 150));
+		txtCipherSummary.setPreferredSize(new Dimension(464, 120));
 		txtCipherSummary.setLineWrap(true);
 		txtCipherSummary.setRequestFocusEnabled(false);
 	}
@@ -317,8 +319,8 @@ public class GUI extends JFrame
 		lblInputKey = new JLabel("Input Key");
 		txtInputKey = new JTextArea();
 		lblInputKey.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblInputKey.setSize(320, 20);
-		txtInputKey.setPreferredSize(new Dimension(320, 30));
+		lblInputKey.setSize(464, 20);
+		txtInputKey.setPreferredSize(new Dimension(464, 30));
 		txtInputKey.setFont(new Font("Tahoma", 0, 14));
 	}
 	/**
@@ -328,15 +330,35 @@ public class GUI extends JFrame
 	{
 		btnEncryptButton = new JButton("Encrypt");
 		btnEncryptButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnEncryptButton.setPreferredSize(new Dimension(320, 50));
+		btnEncryptButton.setPreferredSize(new Dimension(464, 50));
 		btnEncryptButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (cobChooseCipher.getSelectedItem() == "Shift Cipher") new Shift(txtInputText.getText(), txtInputKey.getText());
-				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher") new VigenereCipher(txtInputText.getText(), txtInputKey.getText());
-				if (cobChooseCipher.getSelectedItem() == "One Time Pad") new OneTimePad(txtInputText.getText(), txtInputKey.getText());
-				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher") new RailFence(txtInputText.getText(), txtInputKey.getText());
+				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
+				{
+					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText());
+					txtEncryptionProcess.setText(c.getEncryptOutput());
+					txtDecryptionProcess.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
+				{
+					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText());
+					txtEncryptionProcess.setText(c.getEncryptOutput());
+					txtDecryptionProcess.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "One Time Pad")
+				{
+					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText());
+					txtEncryptionProcess.setText(c.getEncryptOutput());
+					txtDecryptionProcess.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
+				{
+					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText());
+					txtEncryptionProcess.setText(c.getEncryptOutput());
+					txtDecryptionProcess.setText(c.getDecryptOutput());
+				}
 			}
 		});
 	}
@@ -348,8 +370,8 @@ public class GUI extends JFrame
 		lblEncryptionProcess = new JLabel("Encryption Process");
 		txtEncryptionProcess = new JTextArea();
 		lblEncryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblEncryptionProcess.setSize(320, 20);
-		txtEncryptionProcess.setPreferredSize(new Dimension(320, 200));
+		lblEncryptionProcess.setSize(464, 20);
+		txtEncryptionProcess.setPreferredSize(new Dimension(464, 300));
 		txtEncryptionProcess.setFont(new Font("Tahoma", 0, 14));
 		txtEncryptionProcess.setRequestFocusEnabled(false);
 	}
@@ -361,8 +383,8 @@ public class GUI extends JFrame
 		lblDecryptionProcess = new JLabel("Decryption Process");
 		txtDecryptionProcess = new JTextArea();
 		lblDecryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblDecryptionProcess.setSize(320, 20);
-		txtDecryptionProcess.setPreferredSize(new Dimension(320, 200));
+		lblDecryptionProcess.setSize(464, 20);
+		txtDecryptionProcess.setPreferredSize(new Dimension(464, 300));
 		txtDecryptionProcess.setFont(new Font("Tahoma", 0, 14));
 		txtDecryptionProcess.setRequestFocusEnabled(false);
 	}
