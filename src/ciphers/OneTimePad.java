@@ -14,6 +14,7 @@ public class OneTimePad extends Cipher
 	}
 	protected void encrypt()
 	{
+		encryptOutput = "";
 		if (key.length() >= (plaintext.replaceAll("\\s+", "")).length())
 		{
 			String cipher = "";
@@ -31,16 +32,17 @@ public class OneTimePad extends Cipher
 				holder = (charAscii + keyAscii) % 26;
 				cipher += (char) (holder + 97);
 			}
-			System.out.println("Cipher: " + cipher);
+			encryptOutput += "Cipher: " + cipher;
 			ciphertext = cipher;
 		}
 		else
 		{
-			System.out.println("CANNOT encrypt: Need a longer key");
+			encryptOutput += "CANNOT encrypt: Need a longer key";
 		}
 	}
 	protected void decrypt()
 	{
+		decryptOutput = "";
 		if (key.length() >= (plaintext.replaceAll("\\s+", "")).length())
 		{
 			String plain = "";
@@ -58,11 +60,11 @@ public class OneTimePad extends Cipher
 				holder = ((charAscii - keyAscii) + 26) % 26;
 				plain += (char) (holder + 97);
 			}
-			System.out.println("Plaintext: " + plain);
+			decryptOutput += "Plaintext: " + plain;
 		}
 		else
 		{
-			System.out.println("CANNOT decrypt: Need a longer key");
+			decryptOutput += "CANNOT decrypt: Need a longer key";
 		}
 	}
 }

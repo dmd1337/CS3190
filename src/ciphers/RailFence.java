@@ -26,12 +26,12 @@ public class RailFence extends Cipher
 	protected void encrypt()
 	{
 		ciphertext = "";
-		System.out.print("Rail Fence Cipher: Encryption Process \n\n");
-		System.out.print("Note: any full stops have been removed from the plaintext. \n\n");
+		encryptOutput = "";
+		encryptOutput += "Note: any full stops have been removed from the plaintext. \n\n";
 		// Convert key to number
 		int rails = Integer.parseInt(key);
-		System.out.print("Key: " + rails + "\n\n");
-		System.out.print("Plaintext: " + plaintext + "\n\n");
+		encryptOutput += "Key: " + rails + "\n\n";
+		encryptOutput += "Plaintext: " + plaintext + "\n\n";
 		// Initialise rails
 		String[] temp = new String[rails];
 		for (int i = 0; i < temp.length; i++)
@@ -39,7 +39,7 @@ public class RailFence extends Cipher
 			temp[i] = "";
 		}
 		// Arrange plaintext into rails
-		System.out.print("Arrange plaintext into rails: \n");
+		encryptOutput += "Arrange plaintext into rails: \n";
 		boolean directionDown = true;
 		int index = 0;
 		// Pad plaintext string so it ends on the top or bottom rail
@@ -87,11 +87,11 @@ public class RailFence extends Cipher
 		// Obtain ciphertext
 		for (int i = 0; i < temp.length; i++)
 		{
-			System.out.println(temp[i]);
+			encryptOutput += temp[i] + "\n";
 			ciphertext += temp[i].replaceAll("[.]", "");
 		}
-		System.out.print("\n");
-		System.out.print("Ciphertext: " + ciphertext + "\n\n");
+		encryptOutput += "\n";
+		encryptOutput += "Ciphertext: " + ciphertext + "\n\n";
 	}
 	/**
 	 * Decrypts the ciphertext
@@ -99,10 +99,10 @@ public class RailFence extends Cipher
 	protected void decrypt()
 	{
 		plaintext = "";
-		System.out.print("Rail Fence Cipher: Decryption Process \n\n");
+		decryptOutput = "";
 		int rails = Integer.parseInt(key);
-		System.out.print("Key: " + rails + "\n\n");
-		System.out.print("Ciphertext: " + ciphertext + "\n\n");
+		decryptOutput += "Key: " + rails + "\n\n";
+		decryptOutput += "Ciphertext: " + ciphertext + "\n\n";
 		// Get string length
 		int strlen = ciphertext.length();
 		// System.out.println("stlen"+strlen);
@@ -217,6 +217,6 @@ public class RailFence extends Cipher
 		{
 			plain += ciphertext.charAt(deRandom[j]);
 		}
-		System.out.println("plain:" + plain);
+		decryptOutput += "Plaintext: " + plain;
 	}
 }

@@ -24,6 +24,7 @@ public class Shift extends Cipher
 	protected void encrypt()
 	{
 		String cipher = "";
+		encryptOutput = "";
 		int charAscii, holder;
 		for (int i = 0; i < plaintext.length(); i++)
 		{
@@ -36,7 +37,7 @@ public class Shift extends Cipher
 			holder = (charAscii + Integer.parseInt(key)) % 26;
 			cipher += (char) (holder + 97);
 		}
-		System.out.println("Cipher: " + cipher);
+		encryptOutput += "Cipher: " + cipher;
 		ciphertext = cipher;
 	}
 	/**
@@ -45,6 +46,7 @@ public class Shift extends Cipher
 	protected void decrypt()
 	{
 		String plain = "";
+		decryptOutput = "";
 		int charAscii, holder;
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
@@ -57,8 +59,7 @@ public class Shift extends Cipher
 			holder = ((charAscii - Integer.parseInt(key)) + 26) % 26;
 			plain += (char) (holder + 97);
 		}
-		System.out.println("Plaintext: " + plain);
-		System.out.println();
+		decryptOutput += "Plaintext: " + plain;
 		plaintext = plain;
 	}
 }

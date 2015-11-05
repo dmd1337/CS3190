@@ -24,7 +24,7 @@ import ciphers.*;
 /**
  * Top-level class to handle the GUI. Also contains the program's main method.
  * @author Hayley Billingham, Jack Taylor
- * @version 25/10/2015
+ * @version 05/11/2015
  */
 public class GUI extends JFrame
 {
@@ -230,7 +230,9 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
-					txtCipherSummary.setText("It shifts no stuff.\n\n"
+					txtCipherSummary.setText("The Rail Fence Cipher is a transposition cipher which organises the \nplaintext into "
+						+ "a series of rows (the number of rows being determined by \nthe key). The rows are then added to each other to "
+						+ "obtain the ciphertext.\n\n"
 						+ "Valid key values: Any number greater than or equal to 2.");
 					rbSubstitution.setEnabled(false);
 					rbSubstitution.setSelected(false);
@@ -359,6 +361,11 @@ public class GUI extends JFrame
 					txtEncryptionProcess.setText(c.getEncryptOutput());
 					txtDecryptionProcess.setText(c.getDecryptOutput());
 				}
+				if (cobChooseCipher.getSelectedItem() == "RSA")
+				{
+					txtEncryptionProcess.setText("This has not yet been implemented.");
+					txtDecryptionProcess.setText("Neither has this.");
+				}
 			}
 		});
 	}
@@ -372,7 +379,7 @@ public class GUI extends JFrame
 		lblEncryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblEncryptionProcess.setSize(464, 20);
 		txtEncryptionProcess.setPreferredSize(new Dimension(464, 300));
-		txtEncryptionProcess.setFont(new Font("Tahoma", 0, 14));
+		txtEncryptionProcess.setFont(new Font("Courier New", 0, 12));
 		txtEncryptionProcess.setRequestFocusEnabled(false);
 	}
 	/**
@@ -385,7 +392,7 @@ public class GUI extends JFrame
 		lblDecryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblDecryptionProcess.setSize(464, 20);
 		txtDecryptionProcess.setPreferredSize(new Dimension(464, 300));
-		txtDecryptionProcess.setFont(new Font("Tahoma", 0, 14));
+		txtDecryptionProcess.setFont(new Font("Courier New", 0, 12));
 		txtDecryptionProcess.setRequestFocusEnabled(false);
 	}
 	/**
