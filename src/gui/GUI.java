@@ -24,7 +24,7 @@ import ciphers.*;
 /**
  * Top-level class to handle the GUI. Also contains the program's main method.
  * @author Hayley Billingham, Jack Taylor
- * @version 05/11/2015
+ * @version 19/11/2015
  */
 public class GUI extends JFrame
 {
@@ -48,12 +48,12 @@ public class GUI extends JFrame
 	//Key Section
 	private JLabel lblInputKey;
 	private JTextArea txtInputKey;
-	private JButton btnEncryptButton;
+	//Buttons
+	private JButton btnEncrypt;
+	private JButton btnDecrypt;
 	//Output Section
-	private JLabel lblEncryptionProcess;
-	private JLabel lblDecryptionProcess;
-	private JTextArea txtEncryptionProcess;
-	private JTextArea txtDecryptionProcess;
+	private JLabel lblOutput;
+	private JTextArea txtOutput;
 	/**
 	 * Creates GUI
 	 */
@@ -62,13 +62,13 @@ public class GUI extends JFrame
 		initTitle();
 		initTheme();
 		initInputText();
+		initInputKey();
 		initChooseCipher();
 		initCipherBreakdown();
 		initCipherSummary();
-		initInputKey();
 		initEncryptButton();
-		initEncryptionProcess();
-		initDecryptionProcess();
+		initDecryptButton();
+		initOutput();
 		initLayout();
 		addWindowListener(new WindowAdapter()
 		{
@@ -132,6 +132,18 @@ public class GUI extends JFrame
 		txtInputText.setPreferredSize(new Dimension(464, 50));
 		txtInputText.setFont(new Font("Tahoma", 0, 14));
 		txtInputText.setLineWrap(true);
+	}
+	/**
+	 * Initialise the key input text area.
+	 */
+	private void initInputKey()
+	{
+		lblInputKey = new JLabel("Input Key");
+		txtInputKey = new JTextArea();
+		lblInputKey.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblInputKey.setSize(464, 20);
+		txtInputKey.setPreferredSize(new Dimension(464, 30));
+		txtInputKey.setFont(new Font("Tahoma", 0, 14));
 	}
 	/**
 	 * Initialises the cipher selection box.
@@ -290,7 +302,7 @@ public class GUI extends JFrame
 		rbStream.setEnabled(false);
 		rbBlock.setEnabled(false);
 		radioPanel.setLayout(new GridLayout(2, 3));
-		radioPanel.setPreferredSize(new Dimension(464, 100));
+		radioPanel.setPreferredSize(new Dimension(464, 50));
 		radioPanel.add(rbSubstitution);
 		radioPanel.add(rbSymmetric);
 		radioPanel.add(rbStream);
@@ -314,86 +326,95 @@ public class GUI extends JFrame
 		txtCipherSummary.setRequestFocusEnabled(false);
 	}
 	/**
-	 * Initialise the key input text area.
-	 */
-	private void initInputKey()
-	{
-		lblInputKey = new JLabel("Input Key");
-		txtInputKey = new JTextArea();
-		lblInputKey.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblInputKey.setSize(464, 20);
-		txtInputKey.setPreferredSize(new Dimension(464, 30));
-		txtInputKey.setFont(new Font("Tahoma", 0, 14));
-	}
-	/**
 	 * Initialises the encrypt button.
 	 */
 	private void initEncryptButton()
 	{
-		btnEncryptButton = new JButton("Encrypt");
-		btnEncryptButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnEncryptButton.setPreferredSize(new Dimension(464, 50));
-		btnEncryptButton.addActionListener(new ActionListener()
+		btnEncrypt = new JButton("Encrypt");
+		btnEncrypt.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnEncrypt.setPreferredSize(new Dimension(217, 50));
+		btnEncrypt.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
 					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText());
-					txtEncryptionProcess.setText(c.getEncryptOutput());
-					txtDecryptionProcess.setText(c.getDecryptOutput());
+					txtOutput.setText(c.getEncryptOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
 					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText());
-					txtEncryptionProcess.setText(c.getEncryptOutput());
-					txtDecryptionProcess.setText(c.getDecryptOutput());
+					txtOutput.setText(c.getEncryptOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
 					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText());
-					txtEncryptionProcess.setText(c.getEncryptOutput());
-					txtDecryptionProcess.setText(c.getDecryptOutput());
+					txtOutput.setText(c.getEncryptOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
 					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText());
-					txtEncryptionProcess.setText(c.getEncryptOutput());
-					txtDecryptionProcess.setText(c.getDecryptOutput());
+					txtOutput.setText(c.getEncryptOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
-					txtEncryptionProcess.setText("This has not yet been implemented.");
-					txtDecryptionProcess.setText("Neither has this.");
+					txtOutput.setText("This has not yet been implemented.");
 				}
 			}
 		});
 	}
 	/**
-	 * Initialises the Encryption Process text area.
+	 * Initialises the decrypt button.
 	 */
-	private void initEncryptionProcess()
+	private void initDecryptButton()
 	{
-		lblEncryptionProcess = new JLabel("Encryption Process");
-		txtEncryptionProcess = new JTextArea();
-		lblEncryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblEncryptionProcess.setSize(464, 20);
-		txtEncryptionProcess.setPreferredSize(new Dimension(464, 300));
-		txtEncryptionProcess.setFont(new Font("Courier New", 0, 12));
-		txtEncryptionProcess.setRequestFocusEnabled(false);
+		btnDecrypt = new JButton("Decrypt");
+		btnDecrypt.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnDecrypt.setPreferredSize(new Dimension(217, 50));
+		btnDecrypt.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
+				{
+					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText());
+					txtOutput.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
+				{
+					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText());
+					txtOutput.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "One Time Pad")
+				{
+					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText());
+					txtOutput.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
+				{
+					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText());
+					txtOutput.setText(c.getDecryptOutput());
+				}
+				if (cobChooseCipher.getSelectedItem() == "RSA")
+				{
+					txtOutput.setText("This has not yet been implemented.");
+				}
+			}
+		});
 	}
 	/**
-	 * Initialises the Decryption Process text area.
+	 * Initialises the Output text area.
 	 */
-	private void initDecryptionProcess()
+	private void initOutput()
 	{
-		lblDecryptionProcess = new JLabel("Decryption Process");
-		txtDecryptionProcess = new JTextArea();
-		lblDecryptionProcess.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblDecryptionProcess.setSize(464, 20);
-		txtDecryptionProcess.setPreferredSize(new Dimension(464, 300));
-		txtDecryptionProcess.setFont(new Font("Courier New", 0, 12));
-		txtDecryptionProcess.setRequestFocusEnabled(false);
+		lblOutput = new JLabel("Output");
+		txtOutput = new JTextArea();
+		lblOutput.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblOutput.setSize(464, 20);
+		txtOutput.setPreferredSize(new Dimension(510, 586));
+		txtOutput.setFont(new Font("Courier New", 0, 12));
+		txtOutput.setRequestFocusEnabled(false);
 	}
 	/**
 	 * Sets the layout of this frame.
@@ -402,59 +423,57 @@ public class GUI extends JFrame
 	{
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(10, 20, 10, 20);
+		gbc.insets = new Insets(8, 12, 8, 12);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridwidth = 2;
+		gbc.gridwidth = 3;
 		add(title, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		gbc.gridwidth = 1;
+		gbc.gridwidth = 2;
 		add(lblInputText, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		add(txtInputText, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		add(lblChooseCipher, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		add(cobChooseCipher, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 3;
-		add(lblCipherBreakdown, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		add(radioPanel, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 3;
-		add(lblCipherSummary, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 4;
-		add(txtCipherSummary, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 5;
 		add(lblInputKey, gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 6;
+		gbc.gridy = 4;
 		add(txtInputKey, gbc);
-		gbc.gridx = 1;
+		gbc.gridx = 0;
 		gbc.gridy = 5;
-		gbc.gridheight = 2;
-		add(btnEncryptButton, gbc);
+		add(lblChooseCipher, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		add(cobChooseCipher, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 7;
+		add(lblCipherBreakdown, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 8;
+		add(radioPanel, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 9;
+		add(lblCipherSummary, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 10;
+		add(txtCipherSummary, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 11;
+		gbc.gridwidth = 1;
+		add(btnEncrypt, gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 11;
+		add(btnDecrypt, gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 1;
 		gbc.gridheight = 1;
-		add(lblEncryptionProcess, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 8;
-		add(txtEncryptionProcess, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 7;
-		add(lblDecryptionProcess, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 8;
-		add(txtDecryptionProcess, gbc);
+		add(lblOutput, gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 2;
+		gbc.gridheight = 10;
+		add(txtOutput, gbc);
 		pack();
 		setVisible(true);
 	}
