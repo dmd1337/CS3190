@@ -11,27 +11,24 @@ public class RailFence extends Cipher
 	 * @param plaintext The plaintext string
 	 * @param key The encryption key (i.e. number of rails)
 	 */
-	public RailFence(String plaintext, String key)
+	public RailFence(String input, String key, boolean plain)
 	{
-		this.plaintext = plaintext.toLowerCase().replaceAll("[.]", "");
-		// this.plaintext = plaintext.toLowerCase().replaceAll("\\W", "");
-		ciphertext = "";
+		if (plain) plaintext = input.toLowerCase().replaceAll("[.]", "");
+		else ciphertext = input.toLowerCase().replaceAll("[.]", "");
 		this.key = key;
-		encrypt();
-		decrypt();
 	}
 	/**
 	 * Encrypts the plaintext by arranging it into a number of rails equal to the value of the key, then concatenates the rails to obtain the ciphertext.
 	 */
-	protected void encrypt()
+	public void encrypt()
 	{
 		ciphertext = "";
-		encryptOutput = "";
-		encryptOutput += "Note: any full stops have been removed from the plaintext. \n\n";
+		output = "";
+		output += "Note: any full stops have been removed from the plaintext. \n\n";
 		// Convert key to number
 		int rails = Integer.parseInt(key);
-		encryptOutput += "Key: " + rails + "\n\n";
-		encryptOutput += "Plaintext: " + plaintext + "\n\n";
+		output += "Key: " + rails + "\n\n";
+		output += "Plaintext: " + plaintext + "\n\n";
 		// Initialise rails
 		String[] temp = new String[rails];
 		for (int i = 0; i < temp.length; i++)
@@ -39,7 +36,7 @@ public class RailFence extends Cipher
 			temp[i] = "";
 		}
 		// Arrange plaintext into rails
-		encryptOutput += "Arrange plaintext into rails: \n";
+		output += "Arrange plaintext into rails: \n";
 		boolean directionDown = true;
 		int index = 0;
 		// Pad plaintext string so it ends on the top or bottom rail
@@ -87,22 +84,22 @@ public class RailFence extends Cipher
 		// Obtain ciphertext
 		for (int i = 0; i < temp.length; i++)
 		{
-			encryptOutput += temp[i] + "\n";
+			output += temp[i] + "\n";
 			ciphertext += temp[i].replaceAll("[.]", "");
 		}
-		encryptOutput += "\n";
-		encryptOutput += "Ciphertext: " + ciphertext + "\n\n";
+		output += "\n";
+		output += "Ciphertext: " + ciphertext + "\n\n";
 	}
 	/**
 	 * Decrypts the ciphertext
 	 */
-	protected void decrypt()
+	public void decrypt()
 	{
 		plaintext = "";
-		decryptOutput = "";
+		output = "";
 		int rails = Integer.parseInt(key);
-		decryptOutput += "Key: " + rails + "\n\n";
-		decryptOutput += "Ciphertext: " + ciphertext + "\n\n";
+		output += "Key: " + rails + "\n\n";
+		output += "Ciphertext: " + ciphertext + "\n\n";
 		// Get string length
 		int strlen = ciphertext.length();
 		// System.out.println("stlen"+strlen);
@@ -217,6 +214,6 @@ public class RailFence extends Cipher
 		{
 			plain += ciphertext.charAt(deRandom[j]);
 		}
-		decryptOutput += "Plaintext: " + plain;
+		output += "Plaintext: " + plain;
 	}
 }

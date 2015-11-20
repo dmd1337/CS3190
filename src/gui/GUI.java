@@ -339,23 +339,27 @@ public class GUI extends JFrame
 			{
 				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
-					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getEncryptOutput());
+					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText(), true);
+					c.encrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
-					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getEncryptOutput());
+					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText(), true);
+					c.encrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
-					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getEncryptOutput());
+					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText(), true);
+					c.encrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
-					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getEncryptOutput());
+					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText(), true);
+					c.encrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
@@ -378,23 +382,27 @@ public class GUI extends JFrame
 			{
 				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
-					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getDecryptOutput());
+					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText(), false);
+					c.decrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
-					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getDecryptOutput());
+					Cipher c = new VigenereCipher(txtInputText.getText(), txtInputKey.getText(), false);
+					c.decrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
-					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getDecryptOutput());
+					Cipher c = new OneTimePad(txtInputText.getText(), txtInputKey.getText(), false);
+					c.decrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
-					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText());
-					txtOutput.setText(c.getDecryptOutput());
+					Cipher c = new RailFence(txtInputText.getText(), txtInputKey.getText(), false);
+					c.decrypt();
+					txtOutput.setText(c.getOutput());
 				}
 				if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
