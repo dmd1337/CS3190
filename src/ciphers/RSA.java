@@ -53,12 +53,12 @@ public class RSA extends Cipher{
     }
 
     @Override
-    protected void encrypt() {
+    public void encrypt() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void decrypt() {
+    public void decrypt() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
