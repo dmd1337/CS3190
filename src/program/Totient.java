@@ -26,7 +26,7 @@ public class Totient
 	 * therefore the totient value can be incremented.
 	 * @param x The first integer
 	 * @param y The second integer
-	 * @return The greatest common divisor
+	 * @return The highest common factor
 	 */
 	private static int hcf(int x, int y)
 	{

@@ -11,20 +11,19 @@ public class Shift extends Cipher
 	 * @param plaintext The plaintext string
 	 * @param key The encryption key
 	 */
-	public Shift(String plaintext, String key)
+	public Shift(String input, String key, boolean plain)
 	{
+		if (plain) plaintext = input.toLowerCase();
+		else ciphertext = input.toLowerCase();
 		this.key = key;
-		this.plaintext = plaintext.toLowerCase();
-		encrypt();
-		decrypt();
 	}
 	/**
 	 * Encrypts the plaintext by incrementing each letter by the key value.
 	 */
-	protected void encrypt()
+	public void encrypt()
 	{
 		String cipher = "";
-		encryptOutput = "";
+		output = "";
 		int charAscii, holder;
 		for (int i = 0; i < plaintext.length(); i++)
 		{
@@ -37,16 +36,16 @@ public class Shift extends Cipher
 			holder = (charAscii + Integer.parseInt(key)) % 26;
 			cipher += (char) (holder + 97);
 		}
-		encryptOutput += "Cipher: " + cipher;
+		output += "Cipher: " + cipher;
 		ciphertext = cipher;
 	}
 	/**
 	 * Decrypts the ciphertext by decrementing each letter by the key value.
 	 */
-	protected void decrypt()
+	public void decrypt()
 	{
 		String plain = "";
-		decryptOutput = "";
+		output = "";
 		int charAscii, holder;
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
@@ -59,7 +58,7 @@ public class Shift extends Cipher
 			holder = ((charAscii - Integer.parseInt(key)) + 26) % 26;
 			plain += (char) (holder + 97);
 		}
-		decryptOutput += "Plaintext: " + plain;
+		output += "Plaintext: " + plain;
 		plaintext = plain;
 	}
 }

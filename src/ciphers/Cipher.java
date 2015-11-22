@@ -9,16 +9,15 @@ public abstract class Cipher
 	protected String plaintext;
 	protected String ciphertext;
 	protected String key;
-	protected String encryptOutput;
-	protected String decryptOutput;
+	protected String output;
 	/**
 	 * Encrypts the plaintext string, modifying the ciphertext.
 	 */
-	protected abstract void encrypt();
+	public abstract void encrypt();
 	/**
 	 * Decrypts the ciphertext string, modifying the plaintext.
 	 */
-	protected abstract void decrypt();
+	public abstract void decrypt();
 	/**
 	 * @return The plaintext string
 	 */
@@ -34,17 +33,10 @@ public abstract class Cipher
 		return ciphertext;
 	}
 	/**
-	 * @return The encryption output
+	 * @return The output text
 	 */
-	public String getEncryptOutput()
+	public String getOutput()
 	{
-		return encryptOutput;
-	}
-	/**
-	 * @return The decryption output
-	 */
-	public String getDecryptOutput()
-	{
-		return decryptOutput;
+		return output;
 	}
 }

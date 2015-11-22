@@ -4,17 +4,15 @@ package ciphers;
  */
 public class OneTimePad extends Cipher
 {
-	public OneTimePad(String plaintext, String key)
+	public OneTimePad(String input, String key, boolean plain)
 	{
+		if (plain) plaintext = input.toLowerCase().replaceAll("\\W", "");
+		else ciphertext = input.toLowerCase().replaceAll("\\W", "");
 		this.key = (key.toLowerCase()).replaceAll("\\s+", "");
-		this.plaintext = plaintext.toLowerCase();
-		encrypt();
-		decrypt();
-		System.out.println();
 	}
-	protected void encrypt()
+	public void encrypt()
 	{
-		encryptOutput = "";
+		output = "";
 		if (key.length() >= (plaintext.replaceAll("\\s+", "")).length())
 		{
 			String cipher = "";
@@ -32,18 +30,18 @@ public class OneTimePad extends Cipher
 				holder = (charAscii + keyAscii) % 26;
 				cipher += (char) (holder + 97);
 			}
-			encryptOutput += "Cipher: " + cipher;
+			output += "Cipher: " + cipher;
 			ciphertext = cipher;
 		}
 		else
 		{
-			encryptOutput += "CANNOT encrypt: Need a longer key";
+			output += "CANNOT encrypt: Need a longer key";
 		}
 	}
-	protected void decrypt()
+	public void decrypt()
 	{
-		decryptOutput = "";
-		if (key.length() >= (plaintext.replaceAll("\\s+", "")).length())
+		output = "";
+		if (key.length() >= (ciphertext.replaceAll("\\s+", "")).length())
 		{
 			String plain = "";
 			int charAscii, holder, keyTrack = 0, keyAscii;
@@ -60,11 +58,11 @@ public class OneTimePad extends Cipher
 				holder = ((charAscii - keyAscii) + 26) % 26;
 				plain += (char) (holder + 97);
 			}
-			decryptOutput += "Plaintext: " + plain;
+			output += "Plaintext: " + plain;
 		}
 		else
 		{
-			decryptOutput += "CANNOT decrypt: Need a longer key";
+			output += "CANNOT decrypt: Need a longer key";
 		}
 	}
 }

@@ -12,94 +12,92 @@ public class VigenereCipher extends Cipher
 	 * @param plaintext The plaintext string
 	 * @param key The encryption key
 	 */
-	public VigenereCipher(String plaintext, String key)
+	public VigenereCipher(String input, String key, boolean plain)
 	{
-		this.plaintext = plaintext.toLowerCase().replaceAll("\\W", "");
-		ciphertext = "";
+		if (plain) plaintext = input.toLowerCase().replaceAll("\\W", "");
+		else ciphertext = input.toLowerCase().replaceAll("\\W", "");
 		this.key = key.toLowerCase().replaceAll("\\W", "");
-		encrypt();
-		decrypt();
 	}
 	/**
 	 * Encrypts the plaintext by incrementing each letter by the corresponding key value mod key length.
 	 */
-	protected void encrypt()
+	public void encrypt()
 	{
 		ciphertext = "";
-		encryptOutput = "";
+		output = "";
 		// Numeric representation of key
-		encryptOutput += "Key: " + key + "\n";
-		encryptOutput += "Numeric Representation: \n";
+		output += "Key: " + key + "\n";
+		output += "Numeric Representation: \n";
 		int[] keyNumbers = new int[key.length()];
 		for (int i = 0; i < key.length(); i++)
 		{
 			keyNumbers[i] = key.charAt(i) - 97;
-			encryptOutput += String.format("%02d", keyNumbers[i]) + " ";
+			output += String.format("%02d", keyNumbers[i]) + " ";
 		}
-		encryptOutput += "\n\n";
+		output += "\n\n";
 		// Numeric representation of plaintext
-		encryptOutput += "Plaintext: " + plaintext + "\n";
-		encryptOutput += "Numeric Representation: \n";
+		output += "Plaintext: " + plaintext + "\n";
+		output += "Numeric Representation: \n";
 		int[] plaintextNumbers = new int[plaintext.length()];
 		for (int i = 0; i < plaintext.length(); i++)
 		{
 			if (plaintext.charAt(i) < 97 || plaintext.charAt(i) > 122) continue;
 			plaintextNumbers[i] = plaintext.charAt(i) - 97;
-			encryptOutput += String.format("%02d", plaintextNumbers[i]) + " ";
+			output += String.format("%02d", plaintextNumbers[i]) + " ";
 		}
-		encryptOutput += "\n\n";
+		output += "\n\n";
 		// Encryption process
-		encryptOutput += "Add key to plaintext (mod 26): \n";
+		output += "Add key to plaintext (mod 26): \n";
 		for (int i = 0; i < plaintextNumbers.length; i++)
 		{
 			int ciphertextNumber = (plaintextNumbers[i] + keyNumbers[i % keyNumbers.length]) % 26;
-			encryptOutput += String.format("%02d", ciphertextNumber) + " ";
+			output += String.format("%02d", ciphertextNumber) + " ";
 			ciphertext += (char) (ciphertextNumber + 97);
 		}
-		encryptOutput += "\n\n";
+		output += "\n\n";
 		// Print ciphertext
-		encryptOutput += "Ciphertext: " + ciphertext + "\n\n";
+		output += "Ciphertext: " + ciphertext + "\n\n";
 	}
 	/**
 	 * Decrypts the ciphertext by decrementing each letter by the corresponding key value mod key length.
 	 */
-	protected void decrypt()
+	public void decrypt()
 	{
 		plaintext = "";
-		decryptOutput = "";
+		output = "";
 		// Numeric representation of key
-		decryptOutput += "Key: " + key + "\n";
-		decryptOutput += "Numeric Representation: \n";
+		output += "Key: " + key + "\n";
+		output += "Numeric Representation: \n";
 		int[] keyNumbers = new int[key.length()];
 		for (int i = 0; i < key.length(); i++)
 		{
 			keyNumbers[i] = key.charAt(i) - 97;
-			decryptOutput += String.format("%02d", keyNumbers[i]) + " ";
+			output += String.format("%02d", keyNumbers[i]) + " ";
 		}
-		decryptOutput += "\n\n";
+		output += "\n\n";
 		// Numeric representation of ciphertext
-		decryptOutput += "Ciphertext: " + ciphertext + "\n";
-		decryptOutput += "Numeric Representation: \n";
+		output += "Ciphertext: " + ciphertext + "\n";
+		output += "Numeric Representation: \n";
 		int[] ciphertextNumbers = new int[ciphertext.length()];
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
 			if (ciphertext.charAt(i) < 97 || ciphertext.charAt(i) > 122) continue;
 			ciphertextNumbers[i] = ciphertext.charAt(i) - 97;
-			decryptOutput += String.format("%02d", ciphertextNumbers[i]) + " ";
+			output += String.format("%02d", ciphertextNumbers[i]) + " ";
 		}
-		decryptOutput += "\n\n";
+		output += "\n\n";
 		// Decryption process
-		decryptOutput += "Subtract key from ciphertext (mod 26): \n";
+		output += "Subtract key from ciphertext (mod 26): \n";
 		for (int i = 0; i < ciphertextNumbers.length; i++)
 		{
 			int plaintextNumber = (ciphertextNumbers[i] - keyNumbers[i % keyNumbers.length]) % 26;
 			if (plaintextNumber < 0) plaintextNumber += 26;
-			decryptOutput += String.format("%02d", plaintextNumber) + " ";
+			output += String.format("%02d", plaintextNumber) + " ";
 			plaintext += (char) (plaintextNumber + 97);
 		}
-		decryptOutput += "\n\n";
+		output += "\n\n";
 		System.out.print("");
 		// Print plaintext
-		decryptOutput += "Plaintext: " + plaintext + "\n\n";
+		output += "Plaintext: " + plaintext + "\n\n";
 	}
 }
