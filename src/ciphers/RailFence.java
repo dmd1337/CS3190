@@ -8,8 +8,9 @@ public class RailFence extends Cipher
 {
 	/**
 	 * Construct a new Rail Fence Cipher.
-	 * @param plaintext The plaintext string
-	 * @param key The encryption key (i.e. number of rails)
+	 * @param input The input text
+	 * @param key The encryption key
+	 * @param plain Whether the input is plaintext (true) or ciphertext (false)
 	 */
 	public RailFence(String input, String key, boolean plain)
 	{

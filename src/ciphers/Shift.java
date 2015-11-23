@@ -8,13 +8,14 @@ public class Shift extends Cipher
 {
 	/**
 	 * Construct a new Shift Cipher.
-	 * @param plaintext The plaintext string
+	 * @param input The input text
 	 * @param key The encryption key
+	 * @param plain Whether the input is plaintext (true) or ciphertext (false)
 	 */
 	public Shift(String input, String key, boolean plain)
 	{
-		if (plain) plaintext = input.toLowerCase();
-		else ciphertext = input.toLowerCase();
+		if (plain) plaintext = input.toLowerCase().replaceAll("\\W", "");
+		else ciphertext = input.toLowerCase().replaceAll("\\W", "");
 		this.key = key;
 	}
 	/**

@@ -4,6 +4,12 @@ package ciphers;
  */
 public class OneTimePad extends Cipher
 {
+	/**
+	 * Construct a new One Time Pad.
+	 * @param input The input text
+	 * @param key The encryption key
+	 * @param plain Whether the input is plaintext (true) or ciphertext (false)
+	 */
 	public OneTimePad(String input, String key, boolean plain)
 	{
 		if (plain) plaintext = input.toLowerCase().replaceAll("\\W", "");

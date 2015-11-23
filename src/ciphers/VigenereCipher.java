@@ -9,8 +9,9 @@ public class VigenereCipher extends Cipher
 {
 	/**
 	 * Construct a new Vigenere Cipher.
-	 * @param plaintext The plaintext string
+	 * @param input The input text
 	 * @param key The encryption key
+	 * @param plain Whether the input is plaintext (true) or ciphertext (false)
 	 */
 	public VigenereCipher(String input, String key, boolean plain)
 	{
