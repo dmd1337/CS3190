@@ -134,6 +134,7 @@ public class GUI extends JFrame
 		txtInputText.setPreferredSize(new Dimension(464, 50));
 		txtInputText.setFont(new Font("Tahoma", 0, 14));
 		txtInputText.setLineWrap(true);
+		txtInputText.setWrapStyleWord(true);
 	}
 	/**
 	 * Initialise the key input text area.
@@ -146,6 +147,8 @@ public class GUI extends JFrame
 		lblInputKey.setSize(464, 20);
 		txtInputKey.setPreferredSize(new Dimension(464, 30));
 		txtInputKey.setFont(new Font("Tahoma", 0, 14));
+		txtInputKey.setLineWrap(true);
+		txtInputKey.setWrapStyleWord(true);
 	}
 	/**
 	 * Initialises the cipher selection box.
@@ -191,7 +194,7 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
-					txtCipherSummary.setText("The Shift Cipher is very simple; it takes the key and shifts each letter by \n"
+					txtCipherSummary.setText("The Shift Cipher is very simple; it takes the key and shifts each letter by "
 						+ "its value. For example, a key of 2 will shift \"a\" to \"c\".\n\n"
 						+ "Valid key values: Any number between 1 and 25.");
 					rbSubstitution.setEnabled(true);
@@ -209,8 +212,8 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
-					txtCipherSummary.setText("The Vigenere Cipher is a block version of the Shift cipher. It shifts each \n"
-						+ "letter by the corresponding key value, returning to the start of the key \n"
+					txtCipherSummary.setText("The Vigenere Cipher is a block version of the Shift cipher. It shifts each "
+						+ "letter by the corresponding key value, returning to the start of the key "
 						+ "when it reaches the last key letter.\n\n"
 						+ "Valid key values: Any sequence of letters; no numbers or punctuation.");
 					rbSubstitution.setEnabled(true);
@@ -228,10 +231,9 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
-					txtCipherSummary.setText("The One Time Pad is functionally identical to the Vigenere Cipher, except \n"
-						+ "the key is longer than the plaintext. Typically, the key would be a long \n"
-						+ "literary excerpt.\n\n"
-						+ "Valid key values: Same as Vigenere, except it should be at least as long as \nthe plaintext.");
+					txtCipherSummary.setText("The One Time Pad is functionally identical to the Vigenere Cipher, except "
+						+ "the key is longer than the plaintext. Typically, the key would be a long literary excerpt.\n\n"
+						+ "Valid key values: Same as Vigenere, except it must be at least as long as the plaintext.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -247,7 +249,7 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
-					txtCipherSummary.setText("The Rail Fence Cipher is a transposition cipher which organises the \n"
+					txtCipherSummary.setText("The Rail Fence Cipher is a transposition cipher which organises the "
 						+ "plaintext into a series of rows (the number of rows being determined by \n"
 						+ "the key). The rows are then added to each other to obtain the ciphertext.\n\n"
 						+ "Valid key values: Any number greater than or equal to 2.");
@@ -328,6 +330,7 @@ public class GUI extends JFrame
 		txtCipherSummary.setFont(new Font("Tahoma", 0, 14));
 		txtCipherSummary.setPreferredSize(new Dimension(464, 120));
 		txtCipherSummary.setLineWrap(true);
+		txtCipherSummary.setWrapStyleWord(true);
 		txtCipherSummary.setRequestFocusEnabled(false);
 	}
 	/**
@@ -428,6 +431,8 @@ public class GUI extends JFrame
 		txtOutput.setPreferredSize(new Dimension(510, 586));
 		txtOutput.setFont(new Font("Courier New", 0, 12));
 		txtOutput.setRequestFocusEnabled(false);
+		txtOutput.setLineWrap(true);
+		txtOutput.setWrapStyleWord(true);
 	}
 	/**
 	 * Sets the layout of this frame.
