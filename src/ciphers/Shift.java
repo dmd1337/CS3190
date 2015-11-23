@@ -1,8 +1,9 @@
 package ciphers;
 /**
- * The Shift cipher encrypts a plaintext string by incrementing each letter by the value of the key. It is a symmetric cipher; the decryption process simply does the reverse (i.e. subtract from each ciphertext letter).
+ * The Shift cipher encrypts a plaintext string by incrementing each letter by the value of the key. It is a symmetric cipher;
+ * the decryption process simply does the reverse (i.e. subtract from each ciphertext letter).
  * @author Nameyka Myrie
- * @version 14/10/2015
+ * @version 23/11/2015
  */
 public class Shift extends Cipher
 {

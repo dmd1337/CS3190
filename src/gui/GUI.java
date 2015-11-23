@@ -371,7 +371,9 @@ public class GUI extends JFrame
 				}
 				if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
-					txtOutput.setText("This has not yet been implemented.");
+					Cipher c = new RSA(txtInputText.getText(), txtInputKey.getText(), true);
+					c.encrypt();
+					txtOutput.setText(c.getOutput());
 				}
 			}
 		});
@@ -414,7 +416,9 @@ public class GUI extends JFrame
 				}
 				if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
-					txtOutput.setText("This has not yet been implemented.");
+					Cipher c = new RSA(txtInputText.getText(), txtInputKey.getText(), false);
+					c.decrypt();
+					txtOutput.setText(c.getOutput());
 				}
 			}
 		});

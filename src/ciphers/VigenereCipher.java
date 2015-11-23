@@ -1,9 +1,10 @@
 package ciphers;
 /**
- * The Vigenere Cipher is a block version of the Shift cipher. Instead of using one key value, it uses an array of them (typically a word or short sentence) and encrypts a plaintext letter with the corresponding key value (mod its length). Like the Shift
- * cipher, this is symmetric; decryption simply substracts rather than adds.
+ * The Vigenere Cipher is a block version of the Shift cipher. Instead of using one key value, it uses an array of them
+ * (typically a word or short sentence) and encrypts a plaintext letter with the corresponding key value (mod its length).
+ * Like the Shift cipher, this is symmetric; decryption simply substracts rather than adds.
  * @author Jack Taylor
- * @version 14/10/2015
+ * @version 23/11/2015
  */
 public class VigenereCipher extends Cipher
 {

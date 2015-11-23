@@ -2,7 +2,7 @@ package ciphers;
 /**
  * Rail Fence Cipher
  * @author Jack Taylor, Nameyka Myrie
- * @version 17/10/2015
+ * @version 23/11/2015
  */
 public class RailFence extends Cipher
 {
