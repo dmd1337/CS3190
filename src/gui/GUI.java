@@ -268,7 +268,7 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
-					txtCipherSummary.setText("This cipher has not yet been implemented.\n\n"
+					txtCipherSummary.setText("This is the RSA cipher. We don't have a description yet.\n\n"
 						+ "Valid key values: Any number greater than or equal to 2.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);

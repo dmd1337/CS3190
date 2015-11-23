@@ -22,14 +22,12 @@ public class RSA extends Cipher
 			plaintext = input.toLowerCase().replaceAll("\\W", "");
 			ciphertext = "";
 			this.key = key;
-			priv = 17;
 		}
 		else
 		{
 			ciphertext = input.toLowerCase().replaceAll("\\W", "");
 			plaintext = "";
 			priv = Integer.parseInt(key);
-			this.key = "";
 		}
 		n = 77;
 	}
@@ -38,6 +36,8 @@ public class RSA extends Cipher
 	 */
 	public void encrypt()
 	{
+		output = "";
+		priv = 17;
 		int[] plaintextNum = new int[plaintext.length()]; // plaintext to array
 		int keyNum = Integer.parseInt(key);
 		for (int i = 0; i < plaintext.length(); i++)
@@ -58,7 +58,20 @@ public class RSA extends Cipher
 	 */
 	public void decrypt()
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		output = "";
+		int[] ciphertextNum = new int[ciphertext.length()]; // plaintext to array
+		for (int i = 0; i < ciphertext.length(); i++)
+		{
+			// conver to number array
+			ciphertextNum[i] = ((int) ciphertext.charAt(i)) - 97;
+			// System.out.print(plaintextNum[i]);
+			// encrypt function
+			// ciphertextNum[i] = ((int) Math.pow(plaintextNum[i], this.privateKey)) % n; // need function too large for container
+			int plaintextNum = getMod(ciphertextNum[i], priv, n);
+			plaintext += plaintextNum;
+			// getMod(plaintextNum[i], this.privateKey, n);
+			// System.out.println(":"+ciphertextNum[i]);
+		}
 	}
 	/**
 	 * Calculates the totient value of a given number n. A totient value is the number of positive integers less than n
@@ -135,7 +148,7 @@ public class RSA extends Cipher
 			}
 			doubler = doubler + doubler;
 		}
-		System.out.println("****"+currentVal);
+		output += "* " + currentVal + "\n";
 		// System.out.println("");
 		return currentVal;
 	}
