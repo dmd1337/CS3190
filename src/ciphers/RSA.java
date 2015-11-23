@@ -1,14 +1,13 @@
 package ciphers;
 /**
+ * RSA Cipher
  * @author Nameyka Myrie, Jack Taylor
  * @version 23/11/2015
  */
 public class RSA extends Cipher
 {
-	//private int prime1;
-	//private int prime2;
 	private int priv;
-	private int n;
+	private final int n = 77;
 	/**
 	 * Construct a new RSA instance.
 	 * @param input The input text
@@ -29,7 +28,6 @@ public class RSA extends Cipher
 			plaintext = "";
 			priv = Integer.parseInt(key);
 		}
-		n = 77;
 	}
 	/**
 	 * Encrypts the plaintext.
@@ -38,19 +36,13 @@ public class RSA extends Cipher
 	{
 		output = "";
 		priv = 17;
-		int[] plaintextNum = new int[plaintext.length()]; // plaintext to array
+		int[] plaintextNum = new int[plaintext.length()];
 		int keyNum = Integer.parseInt(key);
 		for (int i = 0; i < plaintext.length(); i++)
 		{
-			// conver to number array
-			plaintextNum[i] = ((int) plaintext.charAt(i)) - 97;
-			// System.out.print(plaintextNum[i]);
-			// encrypt function
-			// ciphertextNum[i] = ((int) Math.pow(plaintextNum[i], this.privateKey)) % n; // need function too large for container
+			plaintextNum[i] = ((int)plaintext.charAt(i)) - 97;
 			int ciphertextNum = getMod(plaintextNum[i], keyNum, n);
 			ciphertext += ciphertextNum;
-			// getMod(plaintextNum[i], this.privateKey, n);
-			// System.out.println(":"+ciphertextNum[i]);
 		}
 	}
 	/**
@@ -59,18 +51,12 @@ public class RSA extends Cipher
 	public void decrypt()
 	{
 		output = "";
-		int[] ciphertextNum = new int[ciphertext.length()]; // plaintext to array
+		int[] ciphertextNum = new int[ciphertext.length()];
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
-			// conver to number array
-			ciphertextNum[i] = ((int) ciphertext.charAt(i)) - 97;
-			// System.out.print(plaintextNum[i]);
-			// encrypt function
-			// ciphertextNum[i] = ((int) Math.pow(plaintextNum[i], this.privateKey)) % n; // need function too large for container
+			ciphertextNum[i] = ((int)ciphertext.charAt(i)) - 97;
 			int plaintextNum = getMod(ciphertextNum[i], priv, n);
 			plaintext += plaintextNum;
-			// getMod(plaintextNum[i], this.privateKey, n);
-			// System.out.println(":"+ciphertextNum[i]);
 		}
 	}
 	/**
@@ -107,49 +93,43 @@ public class RSA extends Cipher
 		}
 		return x;
 	}
+	/**
+	 * Add description here
+	 * @param letter
+	 * @param pow
+	 * @param n
+	 * @return
+	 */
 	private int getMod(int letter, int pow, int n)
 	{
 		// Get binary representation
 		String binary = Integer.toBinaryString(pow);
-		// System.out.println(binary);
 		// Array to hold previous computations
 		int[] pastMod = new int[binary.length()];
 		// To double value for exponent
 		int doubler = 1;
 		int currentVal = 0;
-		//int lastVal = 0;
-		// System.out.println("Here");
 		for (int i = binary.length() - 1; i >= 0; i--)
 		{
-			// System.out.println(i+":ii");
-			// System.out.println("Here 222");
-			/*
-			 * if(binary.charAt(i) == '1'){ if(doubler == 1){ currentVal = letter % n; lastVal = currentVal; } pastMod[i] = } else { //This part is irrelevant but meh pastMod[i] = 0; }
-			 */
 			if (doubler == 1)
 			{
 				pastMod[i] = letter % n;
-				// System.out.println(doubler+":"+pastMod[i]);
 				if (binary.charAt(i) == '1')
 				{
 					currentVal = pastMod[i];
-					// System.out.println(doubler+":doubler");
 				}
 				doubler = doubler + doubler;
 				continue;
 			}
 			pastMod[i] = (pastMod[i + 1] * pastMod[i + 1]) % n;
-			// System.out.println(doubler+":"+pastMod[i]);
 			if (binary.charAt(i) == '1')
 			{
 				if (currentVal == 0) currentVal = pastMod[i];
 				currentVal = (currentVal * pastMod[i]) % n;
-				// System.out.println(doubler+":doubler");
 			}
 			doubler = doubler + doubler;
 		}
 		output += "* " + currentVal + "\n";
-		// System.out.println("");
 		return currentVal;
 	}
 }
