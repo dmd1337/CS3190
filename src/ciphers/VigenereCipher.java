@@ -54,7 +54,7 @@ public class VigenereCipher extends Cipher
 		{
 			int ciphertextNumber = (plaintextNumbers[i] + keyNumbers[i % keyNumbers.length]) % 26;
 			output += String.format("%02d", ciphertextNumber) + " ";
-			ciphertext += (char) (ciphertextNumber + 97);
+			ciphertext += (char)(ciphertextNumber + 97);
 		}
 		output += "\n\n";
 		// Print ciphertext

@@ -6,7 +6,17 @@ package ciphers;
  */
 public class RSA extends Cipher
 {
-	private int priv;
+	/* For Nammy:
+	 * I have decided that this would be much simpler if we provided two prime numbers instead of a key.
+	 * With these, the algorithm should generate a valid value for n, then values for kE and kD.
+	 * Once kE and kD are calculated, we can plug those into the encryption as normal.
+	 * 
+	 * Also, decryption will work slightly differently. Instead of a regular ciphertext like those in the other
+	 * ciphers, the ciphertext will be a sequence of numbers. We will need to ensure that these are decrypted individually,
+	 * then converted to text AFTER the decryption process is complete.
+	 */
+	private int ke;
+	private int kd;
 	private final int n = 77;
 	/**
 	 * Construct a new RSA instance.
@@ -20,13 +30,23 @@ public class RSA extends Cipher
 		{
 			plaintext = input.toLowerCase().replaceAll("\\W", "");
 			ciphertext = "";
-			this.key = key;
+			ke = Integer.parseInt(key);
+			kd = 0;
+			int temp = 2;
+			// Calculate decryption key
+			while (kd == 0 && temp < 2500000)
+			{
+				if ((ke * temp) % phi(n) == 1) kd = temp;
+				else temp++;
+			}
+			
 		}
 		else
 		{
 			ciphertext = input.toLowerCase().replaceAll("\\W", "");
 			plaintext = "";
-			priv = Integer.parseInt(key);
+			kd = Integer.parseInt(key);
+			ke = 0;
 		}
 	}
 	/**
@@ -35,14 +55,37 @@ public class RSA extends Cipher
 	public void encrypt()
 	{
 		output = "";
-		priv = 17;
-		int[] plaintextNum = new int[plaintext.length()];
-		int keyNum = Integer.parseInt(key);
-		for (int i = 0; i < plaintext.length(); i++)
+		if (kd == 0)
 		{
-			plaintextNum[i] = ((int)plaintext.charAt(i)) - 97;
-			int ciphertextNum = getMod(plaintextNum[i], keyNum, n);
-			ciphertext += ciphertextNum;
+			output += "Error: could not find decryption key.";
+		}
+		else
+		{
+			// Display decryption key
+			output += "Your decryption key is " + kd + ". Please enter this into the key field to decrypt the ciphertext.\n\n";
+			// Convert numbers to plaintext
+			int[] plaintextNum = new int[plaintext.length()];
+			// Numeric representation of plaintext
+			output += "Plaintext: " + plaintext + "\n";
+			output += "Numeric Representation: \n";
+			for (int i = 0; i < plaintext.length(); i++)
+			{
+				if (plaintext.charAt(i) < 97 || plaintext.charAt(i) > 122) continue;
+				plaintextNum[i] = plaintext.charAt(i) - 97;
+				output += String.format("%02d", plaintextNum[i]) + " ";
+			}
+			output += "\n\n";
+			// Encryption process
+			output += "For each character p, perform p ^ " + ke + " % " + n + "\n";
+			for (int i = 0; i < plaintext.length(); i++)
+			{
+				int ciphertextNum = getMod(plaintextNum[i], ke, n);
+				output += String.format("%02d", ciphertextNum) + " ";
+				ciphertext += ciphertextNum + " ";
+			}
+			output += "\n\n";
+			// Print ciphertext
+			output += "Ciphertext: " + ciphertext + "\n\n";
 		}
 	}
 	/**
@@ -55,7 +98,7 @@ public class RSA extends Cipher
 		for (int i = 0; i < ciphertext.length(); i++)
 		{
 			ciphertextNum[i] = ((int)ciphertext.charAt(i)) - 97;
-			int plaintextNum = getMod(ciphertextNum[i], priv, n);
+			int plaintextNum = getMod(ciphertextNum[i], kd, n);
 			plaintext += plaintextNum;
 		}
 	}
@@ -65,7 +108,6 @@ public class RSA extends Cipher
 	 * @param n The number whose totient to calculate
 	 * @return The totient value of n
 	 */
-	@SuppressWarnings("unused")
 	private int phi(int n)
 	{
 		int tot = 1;
@@ -94,11 +136,11 @@ public class RSA extends Cipher
 		return x;
 	}
 	/**
-	 * Add description here
+	 * Performs the calculation for a single character
 	 * @param letter
 	 * @param pow
 	 * @param n
-	 * @return
+	 * @return The result of the calculation
 	 */
 	private int getMod(int letter, int pow, int n)
 	{
@@ -129,7 +171,6 @@ public class RSA extends Cipher
 			}
 			doubler = doubler + doubler;
 		}
-		output += "* " + currentVal + "\n";
 		return currentVal;
 	}
 }
