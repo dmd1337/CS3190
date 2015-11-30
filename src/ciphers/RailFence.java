@@ -158,4 +158,23 @@ public class RailFence extends Cipher
 		}
 		output += "Plaintext: " + plain;
 	}
+        
+    
+    /*
+     *  Validity of key for Raildence
+     *  Should be an integer more than 1
+     */
+
+    @Override
+    protected boolean isValidKey(String key) {
+        try{
+            int val = Integer.parseInt(key);
+            return val > 1;
+        } catch (NumberFormatException e) {
+            System.out.println("This is not a number, number required");
+        }
+        
+        return false;
+        
+    }
 }
