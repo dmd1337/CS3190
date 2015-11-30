@@ -1,8 +1,9 @@
 package ciphers;
 /**
- * Base class for a Cipher. Ciphers use a cryptosystem consisting of a plaintext string, a ciphertext string, a key, an encryption function and a decryption function.
+ * Base class for a Cipher. Ciphers use a cryptosystem consisting of a plaintext string, a ciphertext string, a key,
+ * an encryption function and a decryption function.
  * @author Jack Taylor
- * @version 14/10/2015
+ * @version 23/11/2015
  */
 public abstract class Cipher
 {

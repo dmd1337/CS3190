@@ -1,16 +1,18 @@
 package ciphers;
 /**
- * The Vigenere Cipher is a block version of the Shift cipher. Instead of using one key value, it uses an array of them (typically a word or short sentence) and encrypts a plaintext letter with the corresponding key value (mod its length). Like the Shift
- * cipher, this is symmetric; decryption simply substracts rather than adds.
+ * The Vigenere Cipher is a block version of the Shift cipher. Instead of using one key value, it uses an array of them
+ * (typically a word or short sentence) and encrypts a plaintext letter with the corresponding key value (mod its length).
+ * Like the Shift cipher, this is symmetric; decryption simply substracts rather than adds.
  * @author Jack Taylor
- * @version 14/10/2015
+ * @version 23/11/2015
  */
 public class VigenereCipher extends Cipher
 {
 	/**
 	 * Construct a new Vigenere Cipher.
-	 * @param plaintext The plaintext string
+	 * @param input The input text
 	 * @param key The encryption key
+	 * @param plain Whether the input is plaintext (true) or ciphertext (false)
 	 */
 	public VigenereCipher(String input, String key, boolean plain)
 	{
@@ -52,7 +54,7 @@ public class VigenereCipher extends Cipher
 		{
 			int ciphertextNumber = (plaintextNumbers[i] + keyNumbers[i % keyNumbers.length]) % 26;
 			output += String.format("%02d", ciphertextNumber) + " ";
-			ciphertext += (char) (ciphertextNumber + 97);
+			ciphertext += (char)(ciphertextNumber + 97);
 		}
 		output += "\n\n";
 		// Print ciphertext

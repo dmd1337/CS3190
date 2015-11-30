@@ -1,15 +1,26 @@
 package ciphers;
 /**
- * @author
+ * One Time Pad
+ * @author Nameyka Myrie
+ * @version 23/11/2015
  */
 public class OneTimePad extends Cipher
 {
+	/**
+	 * Construct a new One Time Pad.
+	 * @param input The input text
+	 * @param key The encryption key
+	 * @param plain Whether the input is plaintext (true) or ciphertext (false)
+	 */
 	public OneTimePad(String input, String key, boolean plain)
 	{
 		if (plain) plaintext = input.toLowerCase().replaceAll("\\W", "");
 		else ciphertext = input.toLowerCase().replaceAll("\\W", "");
 		this.key = (key.toLowerCase()).replaceAll("\\s+", "");
 	}
+	/**
+	 * Encrypts the plaintext by incrementing each letter by the corresponding key value mod key length.
+	 */
 	public void encrypt()
 	{
 		output = "";
@@ -38,6 +49,9 @@ public class OneTimePad extends Cipher
 			output += "CANNOT encrypt: Need a longer key";
 		}
 	}
+	/**
+	 * Decrypts the ciphertext by decrementing each letter by the corresponding key value mod key length.
+	 */
 	public void decrypt()
 	{
 		output = "";
