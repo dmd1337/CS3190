@@ -63,4 +63,23 @@ public class Shift extends Cipher
 		output += "Plaintext: " + plain;
 		plaintext = plain;
 	}
+        
+        
+    /*
+     *  Validity of key for Shift
+     *  Should be an integer more than 0
+     */
+
+    @Override
+    protected boolean isValidKey(String key) {
+        
+        try{
+            int val = Integer.parseInt(key);
+            return val > 0;
+        } catch (NumberFormatException e) {
+            System.out.println("This is not a number, number required");
+        }
+        
+        return false;
+    }
 }
