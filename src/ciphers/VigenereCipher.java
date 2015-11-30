@@ -102,4 +102,25 @@ public class VigenereCipher extends Cipher
 		// Print plaintext
 		output += "Plaintext: " + plaintext + "\n\n";
 	}
+
+        
+    /*
+     *  Validity of key for Vigenere
+     *  Should be an integer more than 0
+     */
+        
+    @Override
+    protected boolean isValidKey(String key) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        char[] keyCheck = key.toCharArray();
+        
+        if(key.length() > 0){
+            for(char c : keyCheck){
+                if(!Character.isLetter(c)) return false;
+            }
+            return true;
+        }
+        return false;
+    }
 }

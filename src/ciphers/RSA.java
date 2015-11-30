@@ -196,4 +196,27 @@ public class RSA extends Cipher
 		}
 		return currentVal;
 	}
+        
+        
+    /*
+     *  Validity of key for RSA
+     *  Should be an integer, followed by a space, followed by another integer
+     */
+
+    @Override
+    protected boolean isValidKey(String key) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[] keys = key.split(" ");
+        
+        try{
+            int[] intKey = {Integer.parseInt(keys[0]), Integer.parseInt(keys[1])};
+            if(intKey[0] > 0 && intKey[1] > 0){
+                return true;
+            }
+        } catch (Exception e){
+            System.out.println("Invalid key\nExpected: key, space, key\nExample string: '4 9'");
+        }
+        
+        return false;
+    }
 }
