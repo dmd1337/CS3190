@@ -6,18 +6,11 @@ package ciphers;
  */
 public class RSA extends Cipher
 {
-	/* For Nammy:
-	 * I have decided that this would be much simpler if we provided two prime numbers instead of a key.
-	 * With these, the algorithm should generate a valid value for n, then values for kE and kD.
-	 * Once kE and kD are calculated, we can plug those into the encryption as normal.
-	 * 
-	 * Also, decryption will work slightly differently. Instead of a regular ciphertext like those in the other
-	 * ciphers, the ciphertext will be a sequence of numbers. We will need to ensure that these are decrypted individually,
-	 * then converted to text AFTER the decryption process is complete.
-	 */
+	private int p1;
+	private int p2;
+	private int modulo;
 	private int ke;
 	private int kd;
-	private final int n = 77;
 	/**
 	 * Construct a new RSA instance.
 	 * @param input The input text
@@ -30,23 +23,25 @@ public class RSA extends Cipher
 		{
 			plaintext = input.toLowerCase().replaceAll("\\W", "");
 			ciphertext = "";
-			ke = Integer.parseInt(key);
+			this.key = key;
+			String[] primes = key.split(" ");
+			p1 = Integer.parseInt(primes[0]);
+			p2 = Integer.parseInt(primes[1]);
+			modulo = 0;
+			ke = 0;
 			kd = 0;
-			int temp = 2;
-			// Calculate decryption key
-			while (kd == 0 && temp < 2500000)
-			{
-				if ((ke * temp) % phi(n) == 1) kd = temp;
-				else temp++;
-			}
-			
 		}
 		else
 		{
-			ciphertext = input.toLowerCase().replaceAll("\\W", "");
 			plaintext = "";
-			kd = Integer.parseInt(key);
+			ciphertext = input;
+			this.key = key;
+			p1 = 0;
+			p2 = 0;
+			String[] keys = key.split(" ");
+			modulo = Integer.parseInt(keys[0]);
 			ke = 0;
+			kd = Integer.parseInt(keys[1]);
 		}
 	}
 	/**
@@ -55,38 +50,58 @@ public class RSA extends Cipher
 	public void encrypt()
 	{
 		output = "";
-		if (kd == 0)
+		// Calculate modulo
+		int tempn = 2;
+		while (modulo == 0)
 		{
-			output += "Error: could not find decryption key.";
+			if (phi(tempn) == (p1 - 1) * (p2 - 1)) modulo = tempn;
+			modulo = p1 * p2;
+			tempn++;
 		}
-		else
+		output += "Modulo: " + modulo + "\n";
+		// Calculate keys
+		while (kd == 0)
 		{
-			// Display decryption key
-			output += "Your decryption key is " + kd + ". Please enter this into the key field to decrypt the ciphertext.\n\n";
-			// Convert numbers to plaintext
-			int[] plaintextNum = new int[plaintext.length()];
-			// Numeric representation of plaintext
-			output += "Plaintext: " + plaintext + "\n";
-			output += "Numeric Representation: \n";
-			for (int i = 0; i < plaintext.length(); i++)
+			int tempe = ke;
+			while (ke == 0 && tempe < modulo)
 			{
-				if (plaintext.charAt(i) < 97 || plaintext.charAt(i) > 122) continue;
-				plaintextNum[i] = plaintext.charAt(i) - 97;
-				output += String.format("%02d", plaintextNum[i]) + " ";
+				if (hcf(tempe, phi(modulo)) == 1 && tempe > 2) ke = tempe;
+				tempe++;
 			}
-			output += "\n\n";
-			// Encryption process
-			output += "For each character p, perform p ^ " + ke + " % " + n + "\n";
-			for (int i = 0; i < plaintext.length(); i++)
+			
+			int tempd = 2;
+			while (kd == 0 && tempd < modulo)
 			{
-				int ciphertextNum = getMod(plaintextNum[i], ke, n);
-				output += String.format("%02d", ciphertextNum) + " ";
-				ciphertext += ciphertextNum + " ";
+				if ((ke * tempd) % phi(modulo) == 1) kd = tempd;
+				tempd++;
 			}
-			output += "\n\n";
-			// Print ciphertext
-			output += "Ciphertext: " + ciphertext + "\n\n";
 		}
+		output += "Encryption key: " + ke + "\n";
+		output += "Decryption key: " + kd + "\n\n";
+		output += "IMPORTANT: IF YOU WOULD LIKE TO DECRYPT THE CIPHERTEXT, PLEASE RETAIN THE MODULO AND DECRYPTION KEY.\n\n";
+		// Convert numbers to plaintext
+		int[] plaintextNum = new int[plaintext.length()];
+		// Numeric representation of plaintext
+		output += "Plaintext: " + plaintext + "\n";
+		output += "Numeric Representation: \n";
+		for (int i = 0; i < plaintext.length(); i++)
+		{
+			if (plaintext.charAt(i) < 97 || plaintext.charAt(i) > 122) continue;
+			plaintextNum[i] = plaintext.charAt(i) - 97;
+			output += String.format("%02d", plaintextNum[i]) + " ";
+		}
+		output += "\n\n";
+		// Encryption process
+		output += "For each character p, perform p ^ " + ke + " % " + modulo + "\n";
+		for (int i = 0; i < plaintext.length(); i++)
+		{
+			int ciphertextNum = getMod(plaintextNum[i], ke);
+			output += String.format("%02d", ciphertextNum) + " ";
+			ciphertext += ciphertextNum + " ";
+		}
+		output += "\n\n";
+		// Print ciphertext
+		output += "Ciphertext: " + ciphertext + "\n\n";
 	}
 	/**
 	 * Decrypts the ciphertext.
@@ -94,13 +109,22 @@ public class RSA extends Cipher
 	public void decrypt()
 	{
 		output = "";
-		int[] ciphertextNum = new int[ciphertext.length()];
-		for (int i = 0; i < ciphertext.length(); i++)
+		String[] tempCipher = ciphertext.split(" ");
+		int[] ciphertextNum = new int[tempCipher.length];
+		for (int i = 0; i < tempCipher.length; i++) ciphertextNum[i] = Integer.parseInt(tempCipher[i]);
+		// Print ciphertext
+		output += "Ciphertext: " + ciphertext + "\n\n";
+		// Decryption process
+		output += "For each character c, perform c ^ " + kd + " % " + modulo + "\n";
+		for (int i = 0; i < ciphertextNum.length; i++)
 		{
-			ciphertextNum[i] = ((int)ciphertext.charAt(i)) - 97;
-			int plaintextNum = getMod(ciphertextNum[i], kd, n);
-			plaintext += plaintextNum;
+			int plaintextNum = getMod(ciphertextNum[i], kd);
+			output += String.format("%02d", plaintextNum) + " ";
+			plaintext += (char)(plaintextNum + 97);
 		}
+		output += "\n\n";
+		// Print plaintext
+		output += "Convert plaintext to characters: " + plaintext + "\n\n";
 	}
 	/**
 	 * Calculates the totient value of a given number n. A totient value is the number of positive integers less than n
@@ -137,12 +161,11 @@ public class RSA extends Cipher
 	}
 	/**
 	 * Performs the calculation for a single character
-	 * @param letter
-	 * @param pow
-	 * @param n
+	 * @param letter The individual character for the calculation
+	 * @param pow The exponent value
 	 * @return The result of the calculation
 	 */
-	private int getMod(int letter, int pow, int n)
+	private int getMod(int letter, int pow)
 	{
 		// Get binary representation
 		String binary = Integer.toBinaryString(pow);
@@ -155,7 +178,7 @@ public class RSA extends Cipher
 		{
 			if (doubler == 1)
 			{
-				pastMod[i] = letter % n;
+				pastMod[i] = letter % modulo;
 				if (binary.charAt(i) == '1')
 				{
 					currentVal = pastMod[i];
@@ -163,11 +186,11 @@ public class RSA extends Cipher
 				doubler = doubler + doubler;
 				continue;
 			}
-			pastMod[i] = (pastMod[i + 1] * pastMod[i + 1]) % n;
+			pastMod[i] = (pastMod[i + 1] * pastMod[i + 1]) % modulo;
 			if (binary.charAt(i) == '1')
 			{
 				if (currentVal == 0) currentVal = pastMod[i];
-				currentVal = (currentVal * pastMod[i]) % n;
+				currentVal = (currentVal * pastMod[i]) % modulo;
 			}
 			doubler = doubler + doubler;
 		}
