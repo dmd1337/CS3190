@@ -39,4 +39,9 @@ public abstract class Cipher
 	{
 		return output;
 	}
+        
+        /*
+        *  Checks the validty of the key for the cipher
+        */
+        protected abstract boolean isValidKey(String key);
 }

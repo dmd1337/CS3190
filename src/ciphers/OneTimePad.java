@@ -65,4 +65,25 @@ public class OneTimePad extends Cipher
 			output += "CANNOT decrypt: Need a longer key";
 		}
 	}
+
+    /*
+     *  Validity of key for One-Time-Pad
+        Should be at least equal lenght of the plaintext/ciphertext
+     */
+    @Override
+    protected boolean isValidKey(String key) {
+        int minVal = 0; 
+        if(this.plaintext.length() > this.ciphertext.length()){
+            minVal = this.plaintext.length();
+        } else {
+            minVal = this.ciphertext.length();
+        }
+        
+        if(key.length() < minVal){
+            System.out.println("Key is not long enough");
+            return false;
+        }
+        
+        return true;
+    }
 }
