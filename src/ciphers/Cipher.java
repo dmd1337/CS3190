@@ -2,8 +2,8 @@ package ciphers;
 /**
  * Base class for a Cipher. Ciphers use a cryptosystem consisting of a plaintext string, a ciphertext string, a key,
  * an encryption function and a decryption function.
- * @author Jack Taylor
- * @version 23/11/2015
+ * @author Jack Taylor, Nameyka Myrie
+ * @version 02/12/2015
  */
 public abstract class Cipher
 {
@@ -40,9 +40,9 @@ public abstract class Cipher
 	{
 		return output;
 	}
-        
-        /*
-        *  Checks the validty of the key for the cipher
-        */
-        protected abstract boolean isValidKey(String key);
+	 /**
+	  * Checks whether the user's key input is valid.
+	  * @param encrypt whether the validation check is for encryption (true) or decryption (false)
+      */
+     protected abstract boolean isValidKey(boolean encrypt);
 }

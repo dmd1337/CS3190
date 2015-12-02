@@ -24,7 +24,7 @@ import ciphers.*;
 /**
  * Top-level class to handle the GUI. Also contains the program's main method.
  * @author Hayley Billingham, Jack Taylor
- * @version 23/11/2015
+ * @version 02/12/2015
  */
 public class GUI extends JFrame
 {
@@ -176,9 +176,9 @@ public class GUI extends JFrame
 			{
 				if (cobChooseCipher.getSelectedItem() == "None")
 				{
-					txtCipherSummary.setText("The None Cipher does exactly what you would expect: absolutely \n"
-						+ "nothing.\n\n"
-						+ "Valid key values: I honestly don't think it matters.");
+					lblInputKey.setText("Input Stuff");
+					txtCipherSummary.setText("The None Cipher does exactly what you would expect: absolutely nothing.\n\n"
+						+ "Valid key values: Anything, I guess...");
 					rbSubstitution.setEnabled(false);
 					rbSubstitution.setSelected(false);
 					rbTransposition.setEnabled(false);
@@ -194,6 +194,7 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
+					lblInputKey.setText("Input Key");
 					txtCipherSummary.setText("The Shift Cipher is very simple; it takes the key and shifts each letter by "
 						+ "its value. For example, a key of 2 will shift \"a\" to \"c\".\n\n"
 						+ "Valid key values: Any number between 1 and 25.");
@@ -212,6 +213,7 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Vigenere Cipher")
 				{
+					lblInputKey.setText("Input Key");
 					txtCipherSummary.setText("The Vigenere Cipher is a block version of the Shift cipher. It shifts each "
 						+ "letter by the corresponding key value, returning to the start of the key "
 						+ "when it reaches the last key letter.\n\n"
@@ -231,8 +233,9 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "One Time Pad")
 				{
+					lblInputKey.setText("Input Key");
 					txtCipherSummary.setText("The One Time Pad is functionally identical to the Vigenere Cipher, except "
-						+ "the key is longer than the plaintext. Typically, the key would be a long literary excerpt.\n\n"
+						+ "the key is at least as long as the plaintext. Typically, the key would be a long literary excerpt.\n\n"
 						+ "Valid key values: Same as Vigenere, except it must be at least as long as the plaintext.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
@@ -249,6 +252,7 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "Rail Fence Cipher")
 				{
+					lblInputKey.setText("Input Key");
 					txtCipherSummary.setText("The Rail Fence Cipher is a transposition cipher which organises the "
 						+ "plaintext into a series of rows (the number of rows being determined by \n"
 						+ "the key). The rows are then added to each other to obtain the ciphertext.\n\n"
@@ -268,8 +272,10 @@ public class GUI extends JFrame
 				}
 				else if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
+					lblInputKey.setText("Input Key/Primes");
 					txtCipherSummary.setText("This is the RSA cipher. We don't have a description yet.\n\n"
-						+ "Valid key values: Any number greater than or equal to 2.");
+						+ "Valid keys: For encryption, two prime numbers separated with a space. For decryption, the "
+						+ "modulo and decryption key separated with a space.");
 					rbSubstitution.setEnabled(true);
 					rbSubstitution.setSelected(true);
 					rbTransposition.setEnabled(false);
@@ -345,6 +351,40 @@ public class GUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				if (cobChooseCipher.getSelectedItem() == "None")
+				{
+					// Easter eggs - mostly video game references
+					if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("stuff"))
+					{
+						txtOutput.setText("I didn't mean literally type 'stuff' into the key box...");
+					}
+					// Legend of Zelda
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("heylisten"))
+					{
+						txtOutput.setText("Be quiet, Navi.");
+					}
+					// Castlevania
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("whatisaman"))
+					{
+						txtOutput.setText("A miserable little pile of secrets. But enough talk, have at you!");
+					}
+					// Xenoblade Chronicles
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("imreallyfeelingit"))
+					{
+						txtOutput.setText("But we mustn't be careless.");
+					}
+					// Super Smash Bros.
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("falcon"))
+					{
+						txtOutput.setText("...PUUUUNCH!");
+					}
+					// Sonic
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("gottagofast"))
+					{
+						txtOutput.setText("YOU'RE TOO SLOW!");
+					}
+					else txtOutput.setText("I lied. It prints this to the output window.");
+				}
 				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
 					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText(), true);
@@ -390,6 +430,40 @@ public class GUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				if (cobChooseCipher.getSelectedItem() == "None")
+				{
+					// Easter eggs - mostly video game references
+					if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("stuff"))
+					{
+						txtOutput.setText("I didn't mean literally type 'stuff' into the key box...");
+					}
+					// Legend of Zelda
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("heylisten"))
+					{
+						txtOutput.setText("Be quiet, Navi.");
+					}
+					// Castlevania
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("whatisaman"))
+					{
+						txtOutput.setText("A miserable little pile of secrets. But enough talk, have at you!");
+					}
+					// Xenoblade Chronicles
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("imreallyfeelingit"))
+					{
+						txtOutput.setText("But we mustn't be careless.");
+					}
+					// Super Smash Bros.
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("falcon"))
+					{
+						txtOutput.setText("...PUUUUNCH!");
+					}
+					// Sonic
+					else if (txtInputKey.getText().toLowerCase().replaceAll("[^a-z]", "").equals("gottagofast"))
+					{
+						txtOutput.setText("YOU'RE TOO SLOW!");
+					}
+					else txtOutput.setText("I lied. It prints this to the output window.");
+				}
 				if (cobChooseCipher.getSelectedItem() == "Shift Cipher")
 				{
 					Cipher c = new Shift(txtInputText.getText(), txtInputKey.getText(), false);
