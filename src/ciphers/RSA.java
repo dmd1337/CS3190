@@ -1,6 +1,8 @@
 package ciphers;
 /**
- * RSA Cipher
+ * RSA is a more complex cipher which works by applying p ^ kE % n to each character in the plaintext, where kE is the encryption key
+ * and n is the modulo value. As not all combinations of keys are valid, the user must instead input two primes; the program will
+ * calculate the modulo value and the two keys automatically.
  * @author Nameyka Myrie, Jack Taylor
  * @version 02/12/2015
  */
