@@ -314,6 +314,12 @@ public class GUI extends JFrame
 		rbAsymmetric.setEnabled(false);
 		rbStream.setEnabled(false);
 		rbBlock.setEnabled(false);
+		rbSubstitution.setToolTipText("Substitution ciphers work by replacing each character in the plaintext with a different character.");
+		rbTransposition.setToolTipText("Transposition ciphers work by rearranging the plaintext; individual characters are not changed.");
+		rbSymmetric.setToolTipText("Symmetric ciphers decrypt ciphertext using the same method used to encrypt the plaintext, but in reverse.");
+		rbAsymmetric.setToolTipText("Asymmetric ciphers have a completely different process for encryption and decryption. Some of these even have more than one key.");
+		rbStream.setToolTipText("Stream ciphers encrypt all characters in the plaintext the same way.");
+		rbBlock.setToolTipText("Block ciphers may encrypt different characters in the plaintext in different ways.");
 		radioPanel.setLayout(new GridLayout(2, 3));
 		radioPanel.setPreferredSize(new Dimension(464, 50));
 		radioPanel.add(rbSubstitution);
