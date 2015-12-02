@@ -273,7 +273,8 @@ public class GUI extends JFrame
 				else if (cobChooseCipher.getSelectedItem() == "RSA")
 				{
 					lblInputKey.setText("Input Key/Primes");
-					txtCipherSummary.setText("This is the RSA cipher. We don't have a description yet.\n\n"
+					txtCipherSummary.setText("Encryption: once the keys are calculated from the supplied primes, each character in the plaintext "
+						+ "is subject to p ^ (encryption key) % (modulo). Decryption is a similar process, except it uses the other key.\n\n"
 						+ "Valid keys: For encryption, two prime numbers separated with a space. For decryption, the "
 						+ "modulo and decryption key separated with a space.");
 					rbSubstitution.setEnabled(true);
@@ -317,7 +318,7 @@ public class GUI extends JFrame
 		rbSubstitution.setToolTipText("Substitution ciphers work by replacing each character in the plaintext with a different character.");
 		rbTransposition.setToolTipText("Transposition ciphers work by rearranging the plaintext; individual characters are not changed.");
 		rbSymmetric.setToolTipText("Symmetric ciphers decrypt ciphertext using the same method used to encrypt the plaintext, but in reverse.");
-		rbAsymmetric.setToolTipText("Asymmetric ciphers have a completely different process for encryption and decryption. Some of these even have more than one key.");
+		rbAsymmetric.setToolTipText("Asymmetric ciphers have a different process for encryption and decryption. Some of these even have more than one key.");
 		rbStream.setToolTipText("Stream ciphers encrypt all characters in the plaintext the same way.");
 		rbBlock.setToolTipText("Block ciphers may encrypt different characters in the plaintext in different ways.");
 		radioPanel.setLayout(new GridLayout(2, 3));
