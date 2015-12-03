@@ -103,22 +103,44 @@ public class RailFence extends Cipher
 			int rails = Integer.parseInt(key);
 			output += "Key: " + rails + "\n\n";
 			output += "Ciphertext: " + ciphertext + "\n\n";
+                        
 			// Get string length
 			int strlen = ciphertext.length();
 			int midRail = (int) strlen / (rails - 1);
+                        
 			// Divide by 2 for outer
 			int bottomRail = (int) Math.ceil(midRail / 2.0);
 			int topRail = bottomRail;
 			topRail += ((midRail % 2) == 0) ? 1 : 0;
+                        
 			// Get rail start positions
 			int[] startPos = new int[rails];
 			startPos[0] = 0;
+                        output += "Get the starting position of each rail:\n";
+                        output += "\tRail: " + 0 + "\t, starts at: " + startPos[0] + "\n";
 			for (int i = 1; i < rails; i++)
 			{
 				startPos[i] = topRail + (midRail * (i - 1));
+                                output += "\tRail: " + i + "\t, starts at: " + startPos[i] + "\n";
 			}
+                        output += "\n\n";
 			int[] deRandom = new int[strlen];
-			// Create sequence, pick out letters
+                        
+                        output += "Recreate rails from start positions:\n";
+                        output += ciphertext.substring(startPos[0], startPos[1]);
+                        for(int i = 0; i < rails; i++){
+                            if(i+1 == rails){
+                                output += ciphertext.substring(startPos[i])+"\n";
+                                continue;
+                            }
+                            output += ciphertext.substring(startPos[i], startPos[i+i])+"\n";
+                            //output += "\n";
+                            
+                        }
+                        output += "\n";
+                        output += "Move through rails in original sequence to arrange the ciphertext characters into the plaintext character arrangement:\n";
+			
+                        // Create sequence, pick out letters
 			boolean directionDown = true, onOuterRail = true;
 			int railTrack = -1, line = 0, outerRailCounter = 0;
 			for (int i = 0; i < strlen; i++)
@@ -161,13 +183,16 @@ public class RailFence extends Cipher
 					onOuterRail = !onOuterRail;
 				}
 			}
+                        for(int i = 0; i < ciphertext.length(); i++){
+                            output += i + ":" + deRandom[i] +", ";
+                        }
 			// Get chars from the list in the order the array says
 			String plain = "";
 			for (int j = 0; j < strlen; j++)
 			{
 				plain += ciphertext.charAt(deRandom[j]);
 			}
-			output += "Plaintext: " + plain;
+			output += "\n\nPlaintext: " + plain;
 		}
 	}
 	/*
