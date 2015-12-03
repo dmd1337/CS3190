@@ -276,16 +276,12 @@ public class RSA extends Cipher
 			try
 			{
 				int[] intKey = {Integer.parseInt(keys[0]), Integer.parseInt(keys[1])};
-				if (intKey.length == 2) output += "This requires two numbers to work properly.";
+				if (intKey.length == 2) output += "The key you have entered is invalid. This requires two numbers to work properly.";
 				else if (intKey[0] > 0 && intKey[1] > 0) valid = true;
-			}
-			catch (ArrayIndexOutOfBoundsException e)
-			{
-				output += "This requires two numbers to work properly.";
 			}
 			catch (Exception e)
 			{
-				System.out.println("Invalid key\nExpected: key, space, key\nExample string: '4 9'");
+				output += "The key you have entered is invalid. This requires two numbers to work properly.";
 			}
 		}
 		return valid;

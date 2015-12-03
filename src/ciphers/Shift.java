@@ -3,7 +3,7 @@ package ciphers;
  * The Shift cipher encrypts a plaintext string by incrementing each letter by the value of the key. It is a symmetric cipher;
  * the decryption process simply does the reverse (i.e. subtract from each ciphertext letter).
  * @author Nameyka Myrie
- * @version 02/12/2015
+ * @version 03/12/2015
  */
 public class Shift extends Cipher
 {
@@ -108,11 +108,11 @@ public class Shift extends Cipher
 		{
 			int val = Integer.parseInt(key);
 			if (val >= 1 && val <= 25) valid = true;
-			else output += "The key must be greater than or equal to zero.";
+			else output += "The key must be between 1 and 25.";
 		}
 		catch (NumberFormatException e)
 		{
-			output += "The key must be numeric.";
+			output += "Please enter a numeric key.";
 		}
 		return valid;
 	}

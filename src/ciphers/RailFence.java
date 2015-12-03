@@ -2,7 +2,7 @@ package ciphers;
 /**
  * Rail Fence Cipher
  * @author Jack Taylor, Nameyka Myrie
- * @version 02/12/2015
+ * @version 03/12/2015
  */
 public class RailFence extends Cipher
 {
@@ -210,7 +210,7 @@ public class RailFence extends Cipher
 		}
 		catch (NumberFormatException e)
 		{
-			output += "The key must be numeric.";
+			output += "Please enter a numeric key.";
 		}
 		return valid;
 	}
