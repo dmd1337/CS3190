@@ -24,7 +24,7 @@ import ciphers.*;
 /**
  * Top-level class to handle the GUI. Also contains the program's main method.
  * @author Hayley Billingham, Jack Taylor
- * @version 02/12/2015
+ * @version 03/12/2015
  */
 public class GUI extends JFrame
 {
@@ -515,7 +515,6 @@ public class GUI extends JFrame
 		lblOutput.setSize(464, 20);
 		txtOutput.setPreferredSize(new Dimension(510, 586));
 		txtOutput.setFont(new Font("Courier New", 0, 12));
-		txtOutput.setRequestFocusEnabled(false);
 		txtOutput.setLineWrap(true);
 		txtOutput.setWrapStyleWord(true);
 	}

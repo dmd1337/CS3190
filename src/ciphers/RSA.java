@@ -4,7 +4,7 @@ package ciphers;
  * and n is the modulo value. As not all combinations of keys are valid, the user must instead input two primes; the program will
  * calculate the modulo value and the two keys automatically.
  * @author Nameyka Myrie, Jack Taylor
- * @version 02/12/2015
+ * @version 03/12/2015
  */
 public class RSA extends Cipher
 {
@@ -23,12 +23,20 @@ public class RSA extends Cipher
 	{
 		if (plain)
 		{
-			plaintext = input.toLowerCase().replaceAll("\\W", "");
+			plaintext = input.toLowerCase().replaceAll("[^a-z]", "");
 			ciphertext = "";
-			this.key = key;
-			String[] primes = key.split(" ");
-			p1 = Integer.parseInt(primes[0]);
-			p2 = Integer.parseInt(primes[1]);
+			this.key = key.replaceAll("[^0-9\\s]", "");
+			String[] primes = this.key.split(" ");
+			if (primes.length == 2)
+			{
+				p1 = Integer.parseInt(primes[0]);
+				p2 = Integer.parseInt(primes[1]);
+			}
+			else
+			{
+				p1 = 0;
+				p2 = 0;
+			}
 			modulo = 0;
 			ke = 0;
 			kd = 0;
@@ -36,14 +44,22 @@ public class RSA extends Cipher
 		else
 		{
 			plaintext = "";
-			ciphertext = input;
-			this.key = key;
+			ciphertext = input.replaceAll("[^0-9\\s]", "");
+			this.key = key.replaceAll("[^.0-9\\s]", "");
 			p1 = 0;
 			p2 = 0;
 			String[] keys = key.split(" ");
-			modulo = Integer.parseInt(keys[0]);
+			if (keys.length == 2)
+			{
+				modulo = Integer.parseInt(keys[0]);
+				kd = Integer.parseInt(keys[1]);
+			}
+			else
+			{
+				modulo = 0;
+				kd = 0;
+			}
 			ke = 0;
-			kd = Integer.parseInt(keys[1]);
 		}
 	}
 	/**
@@ -116,22 +132,31 @@ public class RSA extends Cipher
 		output = "";
 		if (isValidKey(false))
 		{
-			String[] tempCipher = ciphertext.split(" ");
-			int[] ciphertextNum = new int[tempCipher.length];
-			for (int i = 0; i < tempCipher.length; i++) ciphertextNum[i] = Integer.parseInt(tempCipher[i]);
-			// Print ciphertext
-			output += "Ciphertext: " + ciphertext + "\n\n";
-			// Decryption process
-			output += "For each character c, perform c ^ " + kd + " % " + modulo + "\n";
-			for (int i = 0; i < ciphertextNum.length; i++)
+			try
 			{
-				int plaintextNum = getMod(ciphertextNum[i], kd);
-				output += String.format("%02d", plaintextNum) + " ";
-				plaintext += (char)(plaintextNum + 97);
+				output += "Note: all non-numeric characters have been removed from the ciphertext.\n\n";
+				String[] tempCipher = ciphertext.split(" ");
+				int[] ciphertextNum = new int[tempCipher.length];
+				for (int i = 0; i < tempCipher.length; i++) ciphertextNum[i] = Integer.parseInt(tempCipher[i]);
+				// Print ciphertext
+				output += "Ciphertext: " + ciphertext + "\n\n";
+				// Decryption process
+				output += "For each character c, perform c ^ " + kd + " % " + modulo + "\n";
+				for (int i = 0; i < ciphertextNum.length; i++)
+				{
+					int plaintextNum = getMod(ciphertextNum[i], kd);
+					output += String.format("%02d", plaintextNum) + " ";
+					plaintext += (char)(plaintextNum + 97);
+				}
+				output += "\n\n";
+				// Print plaintext
+				output += "Convert plaintext to characters: " + plaintext + "\n\n";
 			}
-			output += "\n\n";
-			// Print plaintext
-			output += "Convert plaintext to characters: " + plaintext + "\n\n";
+			catch (Exception e)
+			{
+				output += "There appears to be a problem with your ciphertext. Please make sure it is a sequence of "
+				+ "numbers separated by spaces, as shown after encryption.";
+			}
 		}
 	}
 	/**
@@ -227,14 +252,22 @@ public class RSA extends Cipher
 			try
 			{
 				String[] keys = key.split(" ");
-				int prime1 = Integer.parseInt(keys[0]);
-				int prime2 = Integer.parseInt(keys[1]);
-				if (prime(prime1) && prime(prime2)) valid = true;
-				else output += "Please enter two prime numbers (separated with a space) into the key section.";
+				if (keys.length == 2) output += "This requires two numbers to work properly.";
+				else
+				{
+					int prime1 = Integer.parseInt(keys[0]);
+					int prime2 = Integer.parseInt(keys[1]);
+					if (prime(prime1) && prime(prime2)) valid = true;
+					else output += "Please enter two prime numbers (separated with a space) into the key section.";
+				}
 			}
 			catch (NumberFormatException e)
 			{
 				output += "Please enter two prime numbers (separated with a space) into the key section.";
+			}
+			catch (ArrayIndexOutOfBoundsException e)
+			{
+				output += "This requires two numbers to work properly.";
 			}
 		}
 		else
@@ -242,13 +275,10 @@ public class RSA extends Cipher
 			String[] keys = key.split(" ");
 			try
 			{
-				int[] intKey = { Integer.parseInt(keys[0]), Integer.parseInt(keys[1]) };
-				if (intKey[0] > 0 && intKey[1] > 0)
-				{
-					valid = true;;
-				}
+				int[] intKey = {Integer.parseInt(keys[0]), Integer.parseInt(keys[1])};
+				if (intKey.length == 2) output += "This requires two numbers to work properly.";
+				else if (intKey[0] > 0 && intKey[1] > 0) valid = true;
 			}
-			
 			catch (ArrayIndexOutOfBoundsException e)
 			{
 				output += "This requires two numbers to work properly.";
